@@ -8,6 +8,7 @@ function resolve(relatedPath) {
   return path.join(__dirname, relatedPath)
 }
 
+
 const webpackConfigDev = {
   mode: 'development',
 
@@ -17,7 +18,7 @@ const webpackConfigDev = {
 
   output: {
     path: resolve('../lib'),
-    filename: 'change-button.js',
+    filename: 'index.js',
   },
 
   devtool: 'cheap-module-eval-source-map',
