@@ -7,21 +7,52 @@ import {
   ChangeButton,
   MyDatePicker,
   MyRangePicker,
-  RangePicker,
   SearchInput,
   SearchTop,
   StaticSelect,
-  StaticTabs
 } from './components';
-import { Input } from 'antd'
-console.log(ChangeButton, 'ChangeButton')
+import { Input } from 'antd';
+// console.log(ChangeButton, 'ChangeButton')
 
 const content = [
   {
-    node: 'Title',
+    node: "Title",
+    key: "Title",
+    label: "标题"
+  },
+  {
+    node: "SearchTop",
+    key: "SearchTop",
+    label: "审批流程",
+    info: [
+      {
+        node: "SearchItem",
+        key: "1",
+        label: "采购单号",
+        info: <MyDatePicker />
+      },
+      {
+        node: "SearchItem",
+        key: "2",
+        label: "流程编号",
+        info: <MyRangePicker />
+      },
+      {
+        node: "Btn",
+        key: "Btn",
+        label: "查找",
+      },
+    ]
+  },
+  {
+    node: 'FormItem',
     key: 'approvalInfo',
     label: '审批信息',
-    info: "审批"
+    info: <SearchInput
+      url="saas"
+      initQueryField="name"
+      queryField="name"
+    />
   },
   {
     node: 'FormItem',
@@ -38,11 +69,6 @@ const content = [
       value: 1
     }]} />
   },
-  {
-    node: "SearchTop",
-    key: "SearchTop",
-    label: "审批流程",
-  }
 ];
 
 

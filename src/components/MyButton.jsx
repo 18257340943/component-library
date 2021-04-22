@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Button, Modal } from 'antd';
 import PropTypes from 'prop-types';
 
 
-export default function MyButton({ title, onClick, children, ...extra }) {
+export default function MyButton({ title, type, onClick, children, ...extra }) {
 
   function confirm() {
     Modal.confirm({
@@ -15,13 +15,26 @@ export default function MyButton({ title, onClick, children, ...extra }) {
   }
 
   return (<>
-    <Button type="link" onClick={confirm} {...extra}>{children}</Button>
+    <Button
+      type={type}
+      onClick={confirm}
+      {...extra}
+      children={children} />
   </>)
 }
+
 MyButton.propTypes = {
-  title: PropTypes.string.isRequired,
-  onClick: PropTypes.func.isRequired,
-  children: PropTypes.string.isRequired,
+  title: PropTypes.string,
+  type: PropTypes.oneOf(['link', 'primary']),
+  children: PropTypes.string,
+  onClick: PropTypes.func,
+}
+
+MyButton.defaultProps = {
+  title: "请填写标题",
+  type: "link",
+  children: "按钮",
+  onClick: () => { }
 }
 
 

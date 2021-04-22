@@ -6,7 +6,13 @@ import PropTypes from 'prop-types';
 
 const { RangePicker } = DatePicker;
 
-export default function MyRangePicker({ value: valArr, onChange, type, format, ...extra }) {
+export default function MyRangePicker({
+  value: valArr,
+  onChange,
+  type,
+  format,
+  style,
+  ...extra }) {
 
   let result;
   switch (type) {
@@ -38,13 +44,18 @@ export default function MyRangePicker({ value: valArr, onChange, type, format, .
 
 
 MyRangePicker.propTypes = {
-  value: PropTypes.array.isRequired,
-  onChange: PropTypes.func.isRequired,
-  type: PropTypes.string.isRequired,
+  value: PropTypes.array,
+  onChange: PropTypes.func,
+  type: PropTypes.oneOf(['timestamp', 'format']),
+  style: PropTypes.object,
   format: PropTypes.string
 }
 MyRangePicker.defaultProps = {
   value: [null, null],
+  onChange: () => { },
+  styles: {
+    width: 200
+  },
   type: "timestamp",
   format: "YYYY-MM-DDTHH:mm:ss.SSS[Z]"
 }

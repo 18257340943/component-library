@@ -1,10 +1,19 @@
 {
-  "name": "@zxhj/test-library",
+  "name": "@zxhj/component-library",
   "version": "1.0.0",
   "main": "lib/change-button.js",
   "scripts": {
     "build": "webpack --config ./scripts/webpack.prod.config.js",
-    "dev": "webpack-dev-server --config ./scripts/webpack.dev.config.js"
+    "start": "webpack-dev-server --config ./scripts/webpack.dev.config.js"
+  },
+  "eslintConfig": {
+    "plugins": [
+      "react-hooks"
+    ],
+    "rules": {
+      "react-hooks/rules-of-hooks": "error",
+      "react-hooks/exhaustive-deps": "warn"
+    }
   },
   "devDependencies": {
     "@babel/core": "^7.10.4",
@@ -17,6 +26,7 @@
     "babel-loader": "^8.1.0",
     "clean-webpack-plugin": "^3.0.0",
     "css-loader": "^3.6.0",
+    "eslint-plugin-react-hooks": "^4.2.0",
     "html-webpack-plugin": "^4.3.0",
     "optimize-css-assets-webpack-plugin": "^5.0.3",
     "postcss-loader": "^3.0.0",
@@ -39,8 +49,5 @@
   "keywords": [],
   "author": "",
   "license": "jingxin",
-  "directories": {
-    "lib": "lib"
-  },
-  "description": ""
+  "description": "公司有关前后端交互、UI部分的一系列组件库"
 }

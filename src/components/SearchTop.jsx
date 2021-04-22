@@ -24,9 +24,6 @@ function SearchTop({ content }) {
       marginLeft: 5,
       textAlign: 'center'
     },
-    searchInput: {
-      // width: 200
-    },
     Btn: {
       marginLeft: theme.xSpace.btn,
       marginBottom: theme.ySpace.searchGroup,

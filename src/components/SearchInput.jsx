@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState, useMemo } from 'react';
+import React, { useCallback, useEffect, useState, useMemo, useContext } from 'react';
 import { Select } from 'antd';
 import PropTypes from 'prop-types';
 
@@ -9,18 +9,18 @@ const { Option } = Select;
 
 export default function SearchInput({
   value: controlVal,
-  labelInValue,
-  defaultPage,
-  dataIndex,
-  schema,
+  labelInValue,                 // 用于初始化时请求字段
+  defaultPage,                  // 默认分页传参
+  dataIndex,                    // list数据源对应字段映射
+  schema,                       // list列表value,label对应映射值
   queryField,                   // onChange时请求参数
   initQueryField,               // 首次渲染的请求参数
-  onChange: contorolChange,
+  onChange,
   url,
   isInit,
-  isCheckHeader,
+  // isCheck  Header,
   style,
-  loading,      // 部分搜索下拉框value值更新依赖于其他业务接口的loading状态
+  loading,            // 部分搜索下拉框value值更新依赖于其他业务接口的loading状态
   ...extra
 }) {
 
@@ -51,6 +51,11 @@ export default function SearchInput({
 
   const options = useMemo(() => data.map(d => <Option value={d[schema.value]} key={d[schema.key]}>{d[schema.label]}</Option>), [data]);
 
+  const onSearch = useCallback((value) => {
+    if (value) {
+      handleSearch(value, queryField);
+    }
+  }, []);
 
   return (<Select
     showSearch
@@ -60,13 +65,8 @@ export default function SearchInput({
     style={style}
     showArrow={false}
     filterOption={false}
-    onSearch={value => {
-      if (value) {
-        handleSearch(value, queryField);
-      }
-    }}
-    onChange={value => { contorolChange(value) }}
-    notFoundContent={null}
+    onSearch={onSearch}
+    onChange={value => { onChange(value) }}
     {...extra}
   >
     {options}
@@ -82,18 +82,18 @@ SearchInput.propTypes = {
   dataIndex: PropTypes.arrayOf(PropTypes.string),
   queryField: PropTypes.string,
   initQueryField: PropTypes.string,
-  onChange: PropTypes.func.isRequired,
+  onChange: PropTypes.func,
   url: PropTypes.string.isRequired,
   schema: PropTypes.object,
   loading: PropTypes.bool,
   labelInValue: PropTypes.bool,
-  // isInit: PropTypes.bool.isRequired,
   isCheckHeader: PropTypes.bool,
   style: PropTypes.object
 }
 
 SearchInput.defaultProps = {
   value: undefined,
+  onChange: () => { },
   labelInValue: false,
   defaultPage: {
     pageNum: 1,
@@ -111,6 +111,6 @@ SearchInput.defaultProps = {
   style: {
     width: 200
   },
-  isCheckHeader: false
+  // isCheckHeader: false
 }
 

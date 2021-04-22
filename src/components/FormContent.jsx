@@ -21,6 +21,7 @@ function FormContent({ content, formItemLayout, style, ...extra }) {
     FormItem: {
       marginBottom: '12px'
     },
+    SearchTop: {},
     Custom: {}
   }))();
 
@@ -43,12 +44,13 @@ function FormContent({ content, formItemLayout, style, ...extra }) {
               </Form.Item>);
               break;
             case "FormItem":
-              actNode = (<Form.Item className={requireUi ? `${classes.FormItem} required-item` : classes.FormItem} label={label} key={key}  {...extraNodeProps}>
+              actNode = (<Form.Item label={label} key={key}
+                className={requireUi ? `${classes.FormItem} required-item` : classes.FormItem}   {...extraNodeProps}>
                 {item.info}
               </Form.Item>);
               break;
             case "SearchTop":
-              actNode = (<SearchTop key={key} content={info} {...extraNodeProps} />);
+              actNode = (<SearchTop className={classes.SearchTop} key={key} content={info} {...extraNodeProps} />);
               break;
             case "Custom":
               actNode = (<div key={key} className={classes.Custom} {...extraNodeProps}>
@@ -70,7 +72,8 @@ function FormContent({ content, formItemLayout, style, ...extra }) {
 
 FormContent.propTypes = {
   style: PropTypes.object,
-  content: PropTypes.array.isRequired,
+  node: PropTypes.oneOf(['Title', 'title', "TextItem", "FormItem", "SearchTop", "Custom"]),
+  content: PropTypes.array,
   formItemLayout: PropTypes.shape({
     wrapperCol: PropTypes.object.isRequired,
     labelCol: PropTypes.object.isRequired
@@ -80,6 +83,7 @@ FormContent.defaultProps = {
   style: {
     width: '100%'
   },
+  content: [],
   formItemLayout: {
     wrapperCol: { span: 16 },
     labelCol: { span: 2 }

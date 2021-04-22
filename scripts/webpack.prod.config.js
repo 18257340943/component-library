@@ -19,7 +19,7 @@ const webpackConfigProd = {
   },
 
   output: {
-    filename: 'ComponentLibrary.js',
+    filename: 'component-library.js',
     path: resolve('../lib'),
     libraryTarget: 'commonjs2'
   },
