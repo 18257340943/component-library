@@ -1,6 +1,6 @@
 {
   "name": "@zxhj/component-library",
-  "version": "1.0.0",
+  "version": "1.0.7",
   "main": "lib/component-library.js",
   "scripts": {
     "build": "webpack --config ./scripts/webpack.prod.config.js",

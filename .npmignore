@@ -1,0 +1,8 @@
+# .npmignore 
+src
+.babelrc
+.gitignore
+public
+scripts
+node_modules
+index.js

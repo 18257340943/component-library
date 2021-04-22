@@ -18,6 +18,7 @@ export default function SearchInput({
   onChange,
   url,
   isInit,
+
   // isCheck  Header,
   style,
   loading,            // 部分搜索下拉框value值更新依赖于其他业务接口的loading状态
@@ -44,7 +45,7 @@ export default function SearchInput({
 
   useEffect(() => {
     // console.log('useEffect')
-    if (!loading && controlVal) {
+    if (!loading) {
       handleSearch(labelInValue ? controlVal.value : controlVal, initQueryField);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -100,7 +101,7 @@ SearchInput.defaultProps = {
     pageNum: 1,
     pageSize: 10
   },
-  dataIndex: ['record'],
+  dataIndex: ['records'],
   queryField: "name",
   initQueryField: "name",
   schema: {
