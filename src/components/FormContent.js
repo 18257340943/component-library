@@ -8,6 +8,7 @@ import SearchTop from './SearchTop';
 
 
 function FormContent({ content, formItemLayout, style, ...extra }) {
+  console.log(111)
   content = content.filter(item => item);
   const classes = makeStyles(() => ({
     FormContent: {},

@@ -25,7 +25,7 @@ export default StaticSelect;
 
 StaticSelect.propTypes = {
   schema: PropTypes.object,
-  list: PropTypes.array.isRequired,
+  list: PropTypes.array,
   placeholder: PropTypes.string,
   value: PropTypes.any,
   onChange: PropTypes.func,
@@ -41,6 +41,7 @@ StaticSelect.defaultProps = {
     width: 200
   },
   placeholder: "",
+  list: [],
   value: undefined,
   onChange: () => { }
 }

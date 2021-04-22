@@ -37,6 +37,7 @@ export default function SearchInput({
       }
     });
     dataSource = dataIndex.length > 0 ? data[dataIndex[0]] : data;
+    console.log(dataSource, 'dataSource');
     setData(dataSource);
   }, 1500, []);
 
@@ -49,7 +50,7 @@ export default function SearchInput({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loading]);
 
-  const options = useMemo(() => data.map(d => <Option value={d[schema.value]} key={d[schema.key]}>{d[schema.label]}</Option>), [data]);
+  const options = useMemo(() => data && data.map(d => <Option value={d[schema.value]} key={d[schema.key]}>{d[schema.label]}</Option>), [data]);
 
   const onSearch = useCallback((value) => {
     if (value) {

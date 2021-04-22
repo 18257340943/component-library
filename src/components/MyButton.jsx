@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+// import React, { useEffect } from 'react';
 import { Button, Modal } from 'antd';
 import PropTypes from 'prop-types';
 
@@ -14,13 +14,14 @@ export default function MyButton({ title, type, onClick, children, ...extra }) {
     });
   }
 
-  return (<>
-    <Button
-      type={type}
-      onClick={confirm}
-      {...extra}
-      children={children} />
-  </>)
+  return null
+  // return (<>
+  //   <Button
+  //     type={type}
+  //     onClick={confirm}
+  //     {...extra}
+  //     children={children} />
+  // </>)
 }
 
 MyButton.propTypes = {

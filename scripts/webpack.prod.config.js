@@ -10,6 +10,9 @@ const { merge } = require('webpack-merge');
 function resolve(relatedPath) {
   return path.join(__dirname, relatedPath)
 }
+const curDate = new Date().toLocaleDateString();
+const curTime = new Date().toLocaleTimeString();
+const dateTimeStr = curTime;
 
 const webpackConfigProd = {
   mode: 'production',
@@ -40,10 +43,10 @@ const webpackConfigProd = {
       new OptimizeCSSAssetsPlugin()
     ],
   },
-  externals: [nodeExternals()],
+  externals: [nodeExternals()],  // 通过nodeExternals()将打包组件内的react等依赖给去除了
 
   plugins: [
-    new CleanWebpackPlugin() //每次执行都将清空一下./dist目录
+    new CleanWebpackPlugin()     //每次执行都将清空一下./dist目录
   ]
 }
 module.exports = merge(webpackConfigBase, webpackConfigProd)

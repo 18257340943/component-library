@@ -1,7 +1,7 @@
 {
   "name": "@zxhj/component-library",
   "version": "1.0.0",
-  "main": "lib/change-button.js",
+  "main": "lib/component-library.js",
   "scripts": {
     "build": "webpack --config ./scripts/webpack.prod.config.js",
     "start": "webpack-dev-server --config ./scripts/webpack.dev.config.js"
@@ -21,7 +21,6 @@
     "@babel/plugin-proposal-decorators": "^7.13.15",
     "@babel/preset-env": "^7.10.4",
     "@babel/preset-react": "^7.10.4",
-    "@hot-loader/react-dom": "^16.13.0",
     "autoprefixer": "^9.8.4",
     "babel-loader": "^8.1.0",
     "clean-webpack-plugin": "^3.0.0",
@@ -41,10 +40,14 @@
     "webpack-node-externals": "^2.5.0"
   },
   "dependencies": {
+    "@hot-loader/react-dom": "^17.0.1",
     "@material-ui/styles": "^4.11.3",
     "antd": "^4.15.2",
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1"
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2"
+  },
+  "directories": {
+    "lib": "lib"
   },
   "keywords": [],
   "author": "",

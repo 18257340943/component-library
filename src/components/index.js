@@ -8,6 +8,7 @@ import SearchTop from './SearchTop';
 import StaticSelect from './StaticSelect';
 import StaticTabs from './StaticTabs'
 import theme from './theme';
+import 'antd/dist/antd.css';
 
 export {
   MyButton,

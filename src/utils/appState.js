@@ -113,6 +113,7 @@ class AppState {
   static requestIntercept(config) {
     // console.log(config, 'config');
     const zxhj_userInfo = LocalStorge.getItem("zxhj_userInfo");
+    console.log(zxhj_userInfo, 'zxhj_userInfo')
     let { body } = config;
     const { headers } = config;
     const defaultHeaders = new Headers({
