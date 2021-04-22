@@ -131,10 +131,11 @@ class AppState {
 
 
     // 请求前拦截，用户登录情况下写入请求头token
-    if (zxhj_userInfo) {
-      const userToken = JSON.parse(zxhj_userInfo).token;
-      defaultHeaders.append("Authorization", `Bearer ${userToken}`);
-    }
+    // if (zxhj_userInfo) {
+    // const userToken = JSON.parse(zxhj_userInfo).token;
+    const userToken = "eyJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6WyJBRE1JTl9UT1AiXSwidXNlcm5hbWUiOiJhZG1pbiIsImlzcyI6InNpdGUuaGF5b25kLmFjY291bnQiLCJzdWIiOiI0OSIsImF1ZCI6IlpYSEoiLCJpYXQiOjE2MTYzODAyMTQsImV4cCI6MTYzMTkzMjIxNH0.huNlZy9Tb5-Jsr5V3AKHZ557aRHSwWsDZz_rNGLiwPQ";
+    defaultHeaders.append("Authorization", `Bearer ${userToken}`);
+    // }
 
 
     return {

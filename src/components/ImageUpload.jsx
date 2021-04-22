@@ -65,7 +65,7 @@ const toFileList = (value) => {
   return fileList
 }
 
-const ImageUpload = function ImageUpload({ value, onChange, uploadMax, single, ...extra }) {
+const ImageUpload = function ImageUpload({ value, onChange, uploadMax, single, style, ...extra }) {
   value = value || '';
   const fileList = toFileList(value);
   uploadMax = uploadMax || 1;
@@ -102,32 +102,41 @@ const ImageUpload = function ImageUpload({ value, onChange, uploadMax, single, .
   }
 
   const uploadButton = (
-    <div>
+    <div >
       <PlusOutlined />
       <div style={{ marginTop: 8 }}>Upload</div>
     </div>
   );
-  return (<Upload
-    customRequest={customRequest}
-    listType="picture-card"
-    fileList={fileList}
-    onChange={({ fileList: newFileList, file, event }) => {
-      onChange(changeLeaveFileList(newFileList, single, file.status))
-    }}
-    onPreview={onPreview}
-    {...extra}
-  >
-    {fileList.length >= uploadMax ? null : uploadButton}
-  </Upload>);
+
+  return (<div style={style} className="imageUpload"
+    children={<Upload
+      customRequest={customRequest}
+      listType="picture-card"
+      fileList={fileList}
+      onChange={({ fileList: newFileList, file, event }) => {
+        onChange(changeLeaveFileList(newFileList, single, file.status))
+      }}
+      onPreview={onPreview}
+      {...extra}
+    >
+      {fileList.length >= uploadMax ? null : uploadButton}
+    </Upload>} />)
+
 };
 ImageUpload.propTypes = {
   value: PropTypes.any,
-  onChange: PropTypes.func.isRequired,
+  onChange: PropTypes.func,
   uploadMax: PropTypes.number,
-  single: PropTypes.bool.isRequired
+  single: PropTypes.bool,
+  style: PropTypes.object,
 };
 ImageUpload.defaultProps = {
-  value: ''
+  value: '',
+  onChange: () => { },
+  single: true,
+  style: {
+    minHeight: 112
+  }
 };
 
 export default ImageUpload

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useCallback } from 'react';
 import ReactDOM from 'react-dom';
 import 'antd/dist/antd.css';
 import {
@@ -10,11 +10,24 @@ import {
   SearchInput,
   SearchTop,
   StaticSelect,
+  ImageUpload
 } from './components';
 
 import { Input } from 'antd';
 
 const App = () => {
+  const [data, setData] = useState({});
+
+  const updateData = useCallback((key, value) => {
+    data[key] = value;
+    setData({ ...data });
+  }, []);
+  console.log(data, 'data111')
+  // const updateData = (key, value) => {
+  //   data[key] = value;
+  //   setData({ ...data });
+  // }
+
   return (
     <div>
       123
@@ -26,15 +39,31 @@ const App = () => {
           label: "标题"
         },
         {
+          node: "FormItem",
+          key: 'input',
+          label: 'input',
+          info: <Input value={data.input} onChange={e => updateData('input', e.target.value)} />
+        },
+        {
+          node: "FormItem",
+          key: "ImageUpload",
+          label: "图片上传",
+          info: <ImageUpload
+            value={data.ImageUpload}
+            onChange={value => updateData('ImageUpload', value)} />
+        },
+        {
           node: "SearchTop",
           key: "SearchTop",
           label: "审批流程",
           info: [
             {
               node: "SearchItem",
-              key: "1",
+              key: "purchaseNum",
               label: "采购单号",
-              info: <MyDatePicker />
+              info: <MyDatePicker
+                value={data.purchaseNum}
+                onChange={value => updateData('purchaseNum', value)} />
             },
             {
               node: "SearchItem",
@@ -55,6 +84,11 @@ const App = () => {
           label: '审批信息',
           info: <SearchInput
             url="saas"
+            schema={{
+              value: 'id',
+              key: 'id',
+              label: 'name'
+            }}
             initQueryField="name"
             queryField="name"
           />
