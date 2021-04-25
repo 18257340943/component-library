@@ -45,7 +45,7 @@ export default function SearchInput({
   useEffect(() => {
     // console.log('useEffect')
     if (!loading) {
-      handleSearch(labelInValue ? controlVal.value : controlVal, initQueryField);
+      handleSearch(labelInValue ? controlVal && controlVal.value || controlVal : controlVal, initQueryField);
     }
   }, [loading]);
 
@@ -58,6 +58,7 @@ export default function SearchInput({
   }, []);
 
   return (<Select
+    loading={loading}
     showSearch
     labelInValue={labelInValue}
     value={controlVal}
@@ -87,7 +88,7 @@ SearchInput.propTypes = {
   schema: PropTypes.object,
   loading: PropTypes.bool,
   labelInValue: PropTypes.bool,
-  isCheckHeader: PropTypes.bool,
+  // isCheckHeader: PropTypes.bool,
   style: PropTypes.object
 }
 
