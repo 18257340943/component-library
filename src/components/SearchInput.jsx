@@ -103,9 +103,9 @@ SearchInput.defaultProps = {
   queryField: "name",
   initQueryField: "name",
   schema: {
-    value: 'value',
-    key: 'value',
-    label: 'label'
+    value: 'id',
+    key: 'id',
+    label: 'name'
   },
   loading: false,
   style: {
