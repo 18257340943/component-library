@@ -43,10 +43,13 @@ export default function SearchInput({
 
 
   useEffect(() => {
-    // console.log('useEffect')
+    console.log(loading, 'useEffect');
     if (!loading) {
-      handleSearch(labelInValue ? controlVal.value : controlVal, initQueryField);
+      handleSearch(labelInValue ?
+        controlVal && controlVal.value || controlVal
+        : controlVal, initQueryField);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loading]);
 
   const options = useMemo(() => data && data.map(d => <Option value={d[schema.value]} key={d[schema.key]}>{d[schema.label]}</Option>), [data]);
@@ -55,8 +58,15 @@ export default function SearchInput({
     if (value) {
       handleSearch(value, queryField);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const handleChange = useCallback((value) => {
+    console.log(value, 'value');
+    onChange(value);
+    // labelInValue?onChange({ value }): onChange();
+  }, []);
+  console.log(extra.placeholder, 'placeholder')
   return (<Select
     showSearch
     labelInValue={labelInValue}
@@ -66,7 +76,7 @@ export default function SearchInput({
     showArrow={false}
     filterOption={false}
     onSearch={onSearch}
-    onChange={value => { onChange(value) }}
+    onChange={handleChange}
     {...extra}
   >
     {options}
@@ -87,7 +97,7 @@ SearchInput.propTypes = {
   schema: PropTypes.object,
   loading: PropTypes.bool,
   labelInValue: PropTypes.bool,
-  isCheckHeader: PropTypes.bool,
+  // isCheckHeader: PropTypes.bool,
   style: PropTypes.object
 }
 
