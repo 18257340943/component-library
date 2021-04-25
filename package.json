@@ -1,19 +1,13 @@
 {
   "name": "@zxhj/component-library",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "main": "lib/component-library.js",
   "scripts": {
+    "init": "eslint --init",
     "build": "webpack --config ./scripts/webpack.prod.config.js",
-    "start": "webpack-dev-server --config ./scripts/webpack.dev.config.js"
-  },
-  "eslintConfig": {
-    "plugins": [
-      "react-hooks"
-    ],
-    "rules": {
-      "react-hooks/rules-of-hooks": "error",
-      "react-hooks/exhaustive-deps": "warn"
-    }
+    "start": "webpack-dev-server --config ./scripts/webpack.dev.config.js",
+    "eslint:fix": "eslint --fix ./src/test.jsx",
+    "lint": "eslint ./src/test.jsx"
   },
   "devDependencies": {
     "@babel/core": "^7.10.4",
@@ -21,10 +15,16 @@
     "@babel/plugin-proposal-decorators": "^7.13.15",
     "@babel/preset-env": "^7.10.4",
     "@babel/preset-react": "^7.10.4",
+    "@hot-loader/react-dom": "^17.0.1",
     "autoprefixer": "^9.8.4",
     "babel-loader": "^8.1.0",
     "clean-webpack-plugin": "^3.0.0",
     "css-loader": "^3.6.0",
+    "eslint": "^7.25.0",
+    "eslint-config-airbnb": "^18.2.1",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-jsx-a11y": "^6.4.1",
+    "eslint-plugin-react": "^7.23.2",
     "eslint-plugin-react-hooks": "^4.2.0",
     "html-webpack-plugin": "^4.3.0",
     "optimize-css-assets-webpack-plugin": "^5.0.3",
@@ -40,7 +40,6 @@
     "webpack-node-externals": "^2.5.0"
   },
   "dependencies": {
-    "@hot-loader/react-dom": "^17.0.1",
     "@material-ui/styles": "^4.11.3",
     "antd": "^4.15.2",
     "react": "^17.0.2",

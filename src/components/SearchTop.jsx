@@ -54,7 +54,7 @@ function SearchTop({ content }) {
       return result
     })}
   </div>)
-};
+}
 
 SearchTop.propTypes = {
   content: PropTypes.arrayOf(PropTypes.shape({

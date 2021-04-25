@@ -77,7 +77,7 @@ const ImageUpload = function ImageUpload({ value, onChange, uploadMax, single, s
         reader.readAsDataURL(file.originFileObj);
         reader.onload = () => resolve(reader.result);
       });
-    };
+    }
     const image = new Image();
     image.src = src;
     const imgWindow = window.open(src);

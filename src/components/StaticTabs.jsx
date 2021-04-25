@@ -13,7 +13,7 @@ export default function StaticTabs({ list, value, onChange, ...extra }) {
       { list.map(tab => (<Tabs.TabPane tab={tab.label} key={tab.value} />))}
     </Tabs>
   )
-};
+}
 
 StaticTabs.propTypes = {
   list: PropTypes.arrayOf(PropTypes.shape({
