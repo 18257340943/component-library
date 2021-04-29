@@ -8,14 +8,18 @@ import SearchTop from './SearchTop';
 import StaticSelect from './StaticSelect';
 import StaticTabs from './StaticTabs';
 import ImageUpload from './ImageUpload';
+import MyInputNumber from './MyInputNumber';
 import ComImg from './ComImg';
 import theme from './theme';
 import 'antd/dist/antd.css';
+import appState from '../utils/appState';
+
 
 export {
   MyButton,
   FormContent,
   ImageUpload,
+  MyInputNumber,
   ChangeButton,
   MyDatePicker,
   MyRangePicker,
@@ -23,6 +27,7 @@ export {
   SearchTop,
   StaticSelect,
   StaticTabs,
+  ComImg,
+  appState,
   theme,
-  ComImg
 }

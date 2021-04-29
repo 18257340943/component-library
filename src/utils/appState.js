@@ -97,7 +97,7 @@ const _fetch = () => {
 };
 
 class AppState {
-  baseUrl = "http://pre-main-service.zxhj618.com:80";
+  baseUrl = `http://${buildEnv === 'online' ? '' : 'pre-'}main-service.zxhj618.com`;
 
   constructor(fetch) {
     this._fetch = fetch;

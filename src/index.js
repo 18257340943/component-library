@@ -10,8 +10,9 @@ import {
   SearchInput,
   SearchTop,
   StaticSelect,
-  ImageUpload
-} from './components';
+  ImageUpload,
+  MyInputNumber
+} from '../lib/component-library';
 
 import { Input } from 'antd';
 
@@ -42,7 +43,7 @@ const App = () => {
           node: "FormItem",
           key: 'input',
           label: 'input',
-          info: <Input value={data.input} onChange={e => updateData('input', e.target.value)} />
+          info: <MyInputNumber />
         },
         {
           node: "FormItem",
