@@ -27,7 +27,7 @@ export default function SearchInput({
   loading,          // 部分搜索下拉框value值更新依赖于其他业务接口的loading状态
   ...extra
 }) {
-
+  console.log(isInit, 'isInit');
   const [data, setData] = useState(initList);
 
   const handleSearch = useDebounce(async (value, queryField) => {

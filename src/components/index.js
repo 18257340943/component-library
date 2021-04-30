@@ -14,6 +14,8 @@ import theme from './theme';
 import 'antd/dist/antd.css';
 import appState from '../utils/appState';
 
+console.log('npm link组件引用成功')
+
 
 export {
   MyButton,
