@@ -3,7 +3,7 @@ module.exports = {
     "browser": true,
     "es2021": true
   },
-  global: {
+  "globals": {
     buildEnv: true
   },
   "extends": [
@@ -18,9 +18,12 @@ module.exports = {
     "sourceType": "module"
   },
   "plugins": [
-    "react"
+    "react",
+    "react-hooks"
   ],
   "rules": {
-    "no-unused-vars": "warn"
+    "no-unused-vars": "warn",
+    "react-hooks/rules-of-hooks": "error",      // 检查 Hook 的规则
+    "react-hooks/exhaustive-deps": "warn",
   }
 }

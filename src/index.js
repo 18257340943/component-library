@@ -12,7 +12,7 @@ import {
   StaticSelect,
   ImageUpload,
   MyInputNumber
-} from '../lib/component-library';
+} from './components';
 
 import { Input } from 'antd';
 

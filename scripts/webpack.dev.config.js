@@ -17,14 +17,14 @@ const webpackConfigDev = {
   },
 
   output: {
-    path: resolve('../lib'),
+    path: resolve('../build'),
     filename: 'index.js',
   },
 
   devtool: 'cheap-module-eval-source-map',
 
   devServer: {
-    contentBase: resolve('../lib'),
+    contentBase: resolve('../build'),
     hot: true,
     open: true,
     host: 'localhost',

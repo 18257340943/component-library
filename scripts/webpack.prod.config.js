@@ -35,7 +35,7 @@ const webpackConfigProd = {
         parallel: 4,// 开启多进程压缩
         terserOptions: {
           compress: {
-            drop_console: true,   // 删除所有的 `console` 语句
+            // drop_console: true,   // 删除所有的 `console` 语句
           },
         },
       }),
