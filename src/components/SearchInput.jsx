@@ -46,7 +46,7 @@ export default function SearchInput({
 
 
   useEffect(() => {
-    if (!loading) {
+    if (isInit && !loading) {
       handleSearch(labelInValue ? controlVal && controlVal.value || controlVal : controlVal, initQueryField);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -55,7 +55,7 @@ export default function SearchInput({
   const options = useMemo(() => data && data.map(d => <Option value={d[schema.value]} key={d[schema.key]}>{d[schema.label]}</Option>), [data]);
 
   const onSearch = useCallback((value) => {
-    if (isInit && value) {
+    if (value) {
       handleSearch(value, queryField);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
