@@ -26,7 +26,7 @@ const webpackConfigDev = {
   devServer: {
     contentBase: resolve('../build'),
     hot: true,
-    open: true,
+    // open: true,
     host: 'localhost',
     port: 8080,
   },
@@ -34,6 +34,10 @@ const webpackConfigDev = {
   plugins: [
     new HtmlWebpackPlugin({ template: './public/index.html', }),
     new webpack.NamedModulesPlugin(),
+    new webpack.DefinePlugin({
+      "buildEnv": JSON.stringify('pre-release'),
+      "appName": JSON.stringify('SAAS')
+    }),
     new webpack.HotModuleReplacementPlugin()
   ]
 }

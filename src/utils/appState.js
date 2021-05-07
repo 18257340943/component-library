@@ -1,8 +1,10 @@
 import { message } from "antd";
 
 // import LocalStorge from "./LocalStoage";
-import { getCookie } from '@/utils/cookie';
+import { getCookie } from './cookie';
 import { search, removeEmptyField } from "./utils";
+import initEnv from './initEnv';
+
 
 function sleep(sleepTime) {
   console.log(`程序睡眠${sleepTime}ms`);
@@ -97,11 +99,13 @@ const _fetch = () => {
   return c_fetch;
 };
 
+
+
+
 class AppState {
-  // eslint-disable-next-line no-undef
-  baseUrl = buildEnv === "online" ? 'http://main-service.zxhj618.com' : 'http://pre-main-service.zxhj618.com';
   constructor(fetch) {
     this._fetch = fetch;
+    this.baseUrl = initEnv.baseUrl
   }
 
   // 针对请求路径和配置做进一步处理啊
@@ -112,7 +116,9 @@ class AppState {
   }
 
   static requestIntercept(config) {
-    const loginToken = getCookie(buildEnv === "online" ? 'token' : 'pre-token');
+
+    const loginToken = getCookie(initEnv.cookieName);
+
     // const loginToken = "eyJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6WyJBVURJVF9QVVJDSEFTRSIsIlBST0pFQ1RfRklOQU5DRSIsIkFVRElUX0JVSUxEIiwiU0hPUF9VU0VSIiwiQVVESVRfUFJPRFVDVCIsIkNMSUVOVF9BRE1JTiIsIlJFTlRfQURNSU4iLCJBVURJVF9DTEFTUyIsIlBST0pFQ1RfT1JERVIiLCJQUk9KRUNUX0FETUlOIiwiQVVESVRfRklOQU5DRSIsIkFVRElUX0FSRUEiLCJBVURJVF9NRUNISU5FIiwiQVVESVRfTEVHQUwiLCJQUk9KRUNUX1JFTlQiLCJQUk9KRUNUX0FVRElUIiwiUFJPSkVDVF9XQVJFSE9VU0UiLCJBVURJVF9QUk9KRUNUIiwiUFJPSkVDVF9ERVZJQ0UiLCJTSE9QX0FETUlOIiwiUFJPSkVDVF9QRVJTT04iLCJBVURJVF9TRUNVUklUWSIsIlJFTlRfVVNFUiIsIlBST0pFQ1RfVVNFUiIsIkFVRElUX1NUT1JFWSIsIkFVRElUX1JFQ0VJVkUiXSwidXNlcm5hbWUiOiJISCIsImlzcyI6InNpdGUuaGF5b25kLmFjY291bnQiLCJzdWIiOiI3OTMiLCJhdWQiOiJISCIsImlhdCI6MTYxOTUwMDE0MywiZXhwIjoxNjM1MDUyMTQzfQ.Tv22QCvh9IopzcCSZnElabHl-dthS2A2Ehuc6rOqQbs"
     // console.log(loginToken, 'loginToken');
     let { body } = config;
