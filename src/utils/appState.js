@@ -118,6 +118,8 @@ class AppState {
   static requestIntercept(config) {
 
     const loginToken = getCookie(initEnv.cookieName);
+    // console.log(loginToken, 'loginToken');
+    // undefined
 
     // const loginToken = "eyJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6WyJBVURJVF9QVVJDSEFTRSIsIlBST0pFQ1RfRklOQU5DRSIsIkFVRElUX0JVSUxEIiwiU0hPUF9VU0VSIiwiQVVESVRfUFJPRFVDVCIsIkNMSUVOVF9BRE1JTiIsIlJFTlRfQURNSU4iLCJBVURJVF9DTEFTUyIsIlBST0pFQ1RfT1JERVIiLCJQUk9KRUNUX0FETUlOIiwiQVVESVRfRklOQU5DRSIsIkFVRElUX0FSRUEiLCJBVURJVF9NRUNISU5FIiwiQVVESVRfTEVHQUwiLCJQUk9KRUNUX1JFTlQiLCJQUk9KRUNUX0FVRElUIiwiUFJPSkVDVF9XQVJFSE9VU0UiLCJBVURJVF9QUk9KRUNUIiwiUFJPSkVDVF9ERVZJQ0UiLCJTSE9QX0FETUlOIiwiUFJPSkVDVF9QRVJTT04iLCJBVURJVF9TRUNVUklUWSIsIlJFTlRfVVNFUiIsIlBST0pFQ1RfVVNFUiIsIkFVRElUX1NUT1JFWSIsIkFVRElUX1JFQ0VJVkUiXSwidXNlcm5hbWUiOiJISCIsImlzcyI6InNpdGUuaGF5b25kLmFjY291bnQiLCJzdWIiOiI3OTMiLCJhdWQiOiJISCIsImlhdCI6MTYxOTUwMDE0MywiZXhwIjoxNjM1MDUyMTQzfQ.Tv22QCvh9IopzcCSZnElabHl-dthS2A2Ehuc6rOqQbs"
     // console.log(loginToken, 'loginToken');
@@ -136,8 +138,8 @@ class AppState {
       }
     }
 
-    // 请求前拦截，用户登录情况下写入请求头token
-    if (loginToken) {
+    // 请求前拦截，用户登录情况下写入请求头token  线上偶发解析为字符串形式
+    if (loginToken && loginToken !== "undefined") {
       defaultHeaders.append("Authorization", `Bearer ${loginToken}`);
     }
 

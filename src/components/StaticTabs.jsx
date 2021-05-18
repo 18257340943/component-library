@@ -11,8 +11,7 @@ export default function StaticTabs({ list, value, onChange, ...extra }) {
       {...extra}
     >
       { list.map(tab => (<Tabs.TabPane tab={tab.label} key={tab.value} />))}
-    </Tabs>
-  )
+    </Tabs>)
 }
 
 StaticTabs.propTypes = {

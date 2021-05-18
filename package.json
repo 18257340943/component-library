@@ -1,13 +1,14 @@
 {
   "name": "@zxhj/component-library",
-  "version": "1.4.1",
-  "main": "lib/component-library.js",
+  "version": "1.4.3",
+  "main": "src/components/index.js",
   "scripts": {
     "init": "eslint --init",
     "build": "rm -rf lib && webpack --config ./scripts/webpack.prod.config.js",
     "start": "webpack-dev-server --config ./scripts/webpack.dev.config.js",
     "eslint:fix": "eslint --fix ./src/test.jsx",
-    "lint": "eslint ./src/test.jsx"
+    "lint": "eslint ./src/test.jsx",
+    "build:publish": "npm run build && npm publish --access public"
   },
   "devDependencies": {
     "@babel/core": "^7.10.4",

@@ -1,3 +1,5 @@
+import 'antd/dist/antd.css';
+
 import ChangeButton from './change_button/change_button';
 import FormContent from './FormContent';
 import MyButton from './MyButton';
@@ -11,7 +13,7 @@ import ImageUpload from './ImageUpload';
 import MyInputNumber from './MyInputNumber';
 import ComImg from './ComImg';
 import theme from './theme';
-import 'antd/dist/antd.css';
+import RadioButtons from './RadioButtons';
 import appState from '../utils/appState';
 
 // console.log('npm link组件引用成功')
@@ -29,6 +31,7 @@ export {
   StaticSelect,
   StaticTabs,
   ComImg,
+  RadioButtons,
   appState,
   theme,
 }

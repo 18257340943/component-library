@@ -7,8 +7,8 @@ class InitEnv {
 
   constructor() {
     this.baseUrl = `http://${buildEnv === "online" ? '' : 'pre-'}main-service.zxhj618.com`;
-    this.cookieName = this.matchCookieName();
-    this.domain = process.env.NODE_ENV === 'production' ? 'domain=zxhj618.com;' : '';
+    this.cookieName = this.matchCookieName(); this.domain = process.env.NODE_ENV === 'production' ? 'domain=zxhj618.com;' : '';
+
   }
 
   matchCookieName() {

@@ -5,7 +5,6 @@ import PropTypes from 'prop-types';
 
 import theme from './theme'
 
-
 function SearchTop({ content }) {
 
   content = content.filter(item => item);

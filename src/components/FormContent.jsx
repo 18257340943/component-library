@@ -36,7 +36,7 @@ function FormContent({ content, formItemLayout, style, ...extra }) {
             case "Title":
             case "title":
               actNode = (<h4 className={classes.Title} key={key}>
-                {label}
+                {label||info}
               </h4>)
               break;
             case "TextItem":
