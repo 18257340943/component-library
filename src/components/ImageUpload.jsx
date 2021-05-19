@@ -96,6 +96,7 @@ const ImageUpload = function ImageUpload({ value, onChange, uploadMax, single, s
         url: data.link
       }
     ];
+    // eslint-disable-next-line no-prototype-builtins
     newFileList = newFileList.filter(file => !file.hasOwnProperty('status'));
 
     onChange(leaveFileList(newFileList, single));
@@ -132,6 +133,7 @@ ImageUpload.propTypes = {
 };
 ImageUpload.defaultProps = {
   value: '',
+  uploadMax: 5,
   onChange: () => { },
   single: true,
   style: {

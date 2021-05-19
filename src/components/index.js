@@ -1,6 +1,6 @@
 import 'antd/dist/antd.css';
 
-import ChangeButton from './change_button/change_button';
+// import ChangeButton from './change_button/change_button';
 import FormContent from './FormContent';
 import MyButton from './MyButton';
 import MyDatePicker from './MyDatePicker';
@@ -14,16 +14,16 @@ import MyInputNumber from './MyInputNumber';
 import ComImg from './ComImg';
 import theme from './theme';
 import RadioButtons from './RadioButtons';
+import MySwitch from './MySwitch';
 import appState from '../utils/appState';
 
-// console.log('npm link组件引用成功')
 
 export {
   MyButton,
   FormContent,
   ImageUpload,
   MyInputNumber,
-  ChangeButton,
+  // ChangeButton,
   MyDatePicker,
   MyRangePicker,
   SearchInput,
@@ -32,6 +32,7 @@ export {
   StaticTabs,
   ComImg,
   RadioButtons,
+  MySwitch,
   appState,
   theme,
 }

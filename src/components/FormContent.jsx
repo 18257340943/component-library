@@ -25,7 +25,7 @@ function FormContent({ content, formItemLayout, style, ...extra }) {
     SearchTop: {},
     Custom: {}
   }))();
-
+  console.log(111);
   return (<div className={classes.FormContent}>
     <Form {...formItemLayout} labelAlign="left" style={style} {...extra} >
       {
@@ -35,8 +35,8 @@ function FormContent({ content, formItemLayout, style, ...extra }) {
           switch (node) {
             case "Title":
             case "title":
-              actNode = (<h4 className={classes.Title} key={key}>
-                {label||info}
+              actNode = (<h4 className={classes.Title} key={key} {...extraNodeProps}>
+                {label || info}
               </h4>)
               break;
             case "TextItem":

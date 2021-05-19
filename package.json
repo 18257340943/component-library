@@ -1,7 +1,7 @@
 {
   "name": "@zxhj/component-library",
   "version": "1.4.3",
-  "main": "src/components/index.js",
+  "main": "lib/component-library.js",
   "scripts": {
     "init": "eslint --init",
     "build": "rm -rf lib && webpack --config ./scripts/webpack.prod.config.js",
