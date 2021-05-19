@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom';
 import {
   MyButton,
   FormContent,
-  ChangeButton,
   MyDatePicker,
   MyRangePicker,
   SearchInput,
@@ -37,7 +36,7 @@ const App = () => {
   return (
     <div>
       123
-      <ChangeButton />
+      {/* <ChangeButton /> */}
       <FormContent content={[
         {
           node: "Title",
@@ -67,7 +66,7 @@ const App = () => {
               node: "SearchItem",
               key: "purchaseNum",
               label: "采购单号",
-              info: <MyDatePicker
+              info: <MyDatePicker isMs={true}
                 value={data.purchaseNum}
                 onChange={value => updateData('purchaseNum', value)} />
             },
@@ -75,7 +74,15 @@ const App = () => {
               node: "SearchItem",
               key: "2",
               label: "流程编号",
-              info: <MyRangePicker />
+              info: <MyRangePicker isMs={true} value={[data.startTime, data.endTime]} onChange={valArr => {
+                console.log(valArr, 'valArr')
+                setData(
+                  {
+                    startTime: valArr[0],
+                    endTime: valArr[1]
+                  }
+                )
+              }} />
             },
             {
               node: "Btn",

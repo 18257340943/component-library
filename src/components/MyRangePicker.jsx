@@ -10,6 +10,7 @@ export default function MyRangePicker({
   value: valArr,
   onChange,
   type,
+  isMs,
   format,
   style,
   ...extra }) {
@@ -17,13 +18,21 @@ export default function MyRangePicker({
   let result;
   switch (type) {
     case "timestamp":
-      result = (<RangePicker
-        value={valArr.map(value => (value ? moment(value * 1000) : null))}
-        onChange={(momentArr) => {
-          return onChange(momentArr ? momentArr.map(moment => moment.startOf('day').utc().unix()) : [null, null])
-        }}
-        {...extra}
-      />)
+      result = isMs === true ?
+        (<RangePicker
+          value={valArr.map(value => (value ? moment(value) : null))}
+          onChange={(momentArr) => {
+            return onChange(momentArr ? momentArr.map(moment => moment.startOf('day').utc().valueOf()) : [null, null])
+          }}
+          {...extra}
+        />)
+        : (<RangePicker
+          value={valArr.map(value => (value ? moment(value * 1000) : null))}
+          onChange={(momentArr) => {
+            return onChange(momentArr ? momentArr.map(moment => moment.startOf('day').utc().unix()) : [null, null])
+          }}
+          {...extra}
+        />)
       break;
     case "format":
       result = (<RangePicker
@@ -48,10 +57,12 @@ MyRangePicker.propTypes = {
   onChange: PropTypes.func,
   type: PropTypes.oneOf(['timestamp', 'format']),
   style: PropTypes.object,
-  format: PropTypes.string
+  format: PropTypes.string,
+  isMs: PropTypes.bool
 }
 MyRangePicker.defaultProps = {
   value: [null, null],
+  isMs: false,
   onChange: () => { },
   styles: {
     width: 200
