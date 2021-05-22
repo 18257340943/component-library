@@ -12,7 +12,7 @@ export default function RadioButtons({ list, value, onChange }) {
 
 RadioButtons.propTypes = {
   list: PropTypes.array,
-  value: PropTypes.number,
+  value: PropTypes.any,
   onChange: PropTypes.func
 }
 

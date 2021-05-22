@@ -6,9 +6,8 @@ import PropTypes from 'prop-types';
 import theme from './theme';
 import SearchTop from './SearchTop';
 
-
-function FormContent({ content, formItemLayout, style, ...extra }) {
-  console.log(111)
+function FormContent({ content, formItemLayout, style, wrapperStyle, ...extra }) {
+  // console.log(111)
   content = content.filter(item => item);
   const classes = makeStyles(() => ({
     FormContent: {},
@@ -25,8 +24,8 @@ function FormContent({ content, formItemLayout, style, ...extra }) {
     SearchTop: {},
     Custom: {}
   }))();
-  console.log(111);
-  return (<div className={classes.FormContent}>
+  // console.log(111);
+  return (<div className={classes.FormContent} style={wrapperStyle}>
     <Form {...formItemLayout} labelAlign="left" style={style} {...extra} >
       {
         content.map(item => {
@@ -78,7 +77,8 @@ FormContent.propTypes = {
   formItemLayout: PropTypes.shape({
     wrapperCol: PropTypes.object.isRequired,
     labelCol: PropTypes.object.isRequired
-  })
+  }),
+  wrapperStyle: PropTypes.object
 }
 FormContent.defaultProps = {
   style: {
