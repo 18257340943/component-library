@@ -1,6 +1,7 @@
 const path = require('path');
 const srcDir = path.join(__dirname, '../src');
 
+
 const webpackConfigBase = {
 
   //module此处为loader区域，一般文件内容解析，处理放在此处，如babel，less,postcss转换等
