@@ -1,5 +1,0 @@
-.eslintrc.js
-lib
-/scripts/webpack.base.config.js
-/scripts/webpack.dev.config.js
-/scripts/webpack.prod.config.js
