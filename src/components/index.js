@@ -16,7 +16,7 @@ import theme from './theme';
 import RadioButtons from './RadioButtons';
 import MySwitch from './MySwitch';
 import appState from '../utils/appState';
-
+import initEnv from '../utils/initEnv';
 
 export {
   MyButton,
@@ -34,5 +34,6 @@ export {
   RadioButtons,
   MySwitch,
   appState,
+  initEnv,
   theme,
 }

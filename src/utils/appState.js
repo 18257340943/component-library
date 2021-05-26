@@ -1,22 +1,15 @@
 import { message } from "antd";
 
-// import LocalStorge from "./LocalStoage";
-import { getCookie } from './cookie';
+import { getCookie } from "./cookie";
 import { search, removeEmptyField } from "./utils";
-import initEnv from './initEnv';
-
-
-function sleep(sleepTime) {
-  console.log(`程序睡眠${sleepTime}ms`);
-  for (let start = new Date(); new Date() - start <= sleepTime;) { }
-}
+import initEnv from "./initEnv";
 
 // 支持 search 参数url化
 function addSearch(url, init) {
-  console.log(url, JSON.stringify(init), 'url')
+  // console.log(url, JSON.stringify(init), 'url')
   // eslint-disable-next-line no-unused-expressions
   init &&
-    Object.keys(init).forEach((key) => {
+    Object.keys(init).forEach(key => {
       if (key === "search") {
         let searchObj = init[key];
         if (!searchObj) {
@@ -47,7 +40,7 @@ const _fetch = () => {
       init.method = "POST";
     }
     // interceptors_req是拦截请求的拦截处理函数集合
-    interceptors_req.forEach((interceptors) => {
+    interceptors_req.forEach(interceptors => {
       init = interceptors(init);
     });
 
@@ -58,9 +51,9 @@ const _fetch = () => {
     return new Promise((resolve, reject) => {
       // 发起fetch请求，fetch请求的形参是接收上层函数的形参
       fetch(input, init)
-        .then((res) => {
+        .then(res => {
           // interceptors_res是拦截响应结果的拦截处理函数集合
-          interceptors_res.forEach((interceptors) => {
+          interceptors_res.forEach(interceptors => {
             // console.log(interceptors, 'interceptors');
             // 拦截器对响应结果做  处理，把处理后的结果返回给响应结果。
             res = interceptors(res);
@@ -68,7 +61,7 @@ const _fetch = () => {
           // console.log(res, 'res');
           return res.json();
         })
-        .then((result) => {
+        .then(result => {
           // console.log(result, 'result')
           const { data } = result;
           if (result.code !== 200) {
@@ -78,7 +71,7 @@ const _fetch = () => {
           // 将拦截器处理后的响应结果resolve出去
           resolve(data);
         })
-        .catch((err) => {
+        .catch(err => {
           reject(err);
         });
     });
@@ -99,13 +92,10 @@ const _fetch = () => {
   return c_fetch;
 };
 
-
-
-
 class AppState {
   constructor(fetch) {
     this._fetch = fetch;
-    this.baseUrl = initEnv.baseUrl
+    this.baseUrl = initEnv.baseUrl;
   }
 
   // 针对请求路径和配置做进一步处理啊
@@ -115,31 +105,29 @@ class AppState {
     return { newURL, newINIT };
   }
 
+  static loginToken = getCookie(initEnv.cookieName);
+
   static requestIntercept(config) {
-
-    const loginToken = getCookie(initEnv.cookieName);
-    console.log(loginToken, 'loginToken');  // 用于调试登录状态 误删！
-
-    // const loginToken = "eyJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6WyJBVURJVF9QVVJDSEFTRSIsIlBST0pFQ1RfRklOQU5DRSIsIkFVRElUX0JVSUxEIiwiU0hPUF9VU0VSIiwiQVVESVRfUFJPRFVDVCIsIkNMSUVOVF9BRE1JTiIsIlJFTlRfQURNSU4iLCJBVURJVF9DTEFTUyIsIlBST0pFQ1RfT1JERVIiLCJQUk9KRUNUX0FETUlOIiwiQVVESVRfRklOQU5DRSIsIkFVRElUX0FSRUEiLCJBVURJVF9NRUNISU5FIiwiQVVESVRfTEVHQUwiLCJQUk9KRUNUX1JFTlQiLCJQUk9KRUNUX0FVRElUIiwiUFJPSkVDVF9XQVJFSE9VU0UiLCJBVURJVF9QUk9KRUNUIiwiUFJPSkVDVF9ERVZJQ0UiLCJTSE9QX0FETUlOIiwiUFJPSkVDVF9QRVJTT04iLCJBVURJVF9TRUNVUklUWSIsIlJFTlRfVVNFUiIsIlBST0pFQ1RfVVNFUiIsIkFVRElUX1NUT1JFWSIsIkFVRElUX1JFQ0VJVkUiXSwidXNlcm5hbWUiOiJISCIsImlzcyI6InNpdGUuaGF5b25kLmFjY291bnQiLCJzdWIiOiI3OTMiLCJhdWQiOiJISCIsImlhdCI6MTYxOTUwMDE0MywiZXhwIjoxNjM1MDUyMTQzfQ.Tv22QCvh9IopzcCSZnElabHl-dthS2A2Ehuc6rOqQbs"
-    // console.log(loginToken, 'loginToken');
     let { body } = config;
-    const { headers } = config;
+    let { headers } = config;
+    headers = removeEmptyField(headers);
+
     const defaultHeaders = new Headers({
       "Content-Type": "application/json", // 默认上传类型
-      ...headers
+      ...headers,
     });
 
     if (body) {
       if (Object.getPrototypeOf(body).constructor.name === "FormData") {
         defaultHeaders.delete("Content-Type");
       } else {
-        body = JSON.stringify(removeEmptyField(body));
+        body = typeof body === "object" ? JSON.stringify(removeEmptyField(body)) : body;
       }
     }
 
-    // 请求前拦截，用户登录情况下写入请求头token  线上偶发解析为字符串形式
-    if (loginToken && loginToken !== "undefined") {
-      defaultHeaders.append("Authorization", `Bearer ${loginToken}`);
+    // 请求前拦截，用户登录情况下写入请求头token
+    if (AppState.loginToken && AppState.loginToken !== "undefined") {
+      defaultHeaders.append("Authorization", `Bearer ${AppState.loginToken}`);
     }
 
     return {
@@ -163,5 +151,4 @@ class AppState {
   }
 }
 
-
-export default new AppState(_fetch)
+export default new AppState(_fetch);

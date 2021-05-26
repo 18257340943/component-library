@@ -14,7 +14,6 @@ import {
 import initEnv from '@/utils/initEnv';
 import { getCookie, setCookie } from '@/utils/cookie';
 
-
 const { cookieName, baseUrl } = initEnv;
 import { Input } from 'antd';
 
