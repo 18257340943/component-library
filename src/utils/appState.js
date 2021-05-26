@@ -96,6 +96,7 @@ class AppState {
   constructor(fetch) {
     this._fetch = fetch;
     this.baseUrl = initEnv.baseUrl;
+    console.log(AppState.loginToken, 'AppState.loginToken')
   }
 
   // 针对请求路径和配置做进一步处理啊
