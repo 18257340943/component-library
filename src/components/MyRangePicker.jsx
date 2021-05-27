@@ -6,6 +6,9 @@ import PropTypes from 'prop-types';
 
 const { RangePicker } = DatePicker;
 
+// 实现基础的受控绑定
+// 实现超过当前日期不可选
+
 export default function MyRangePicker({
   value: valArr,
   onChange,
@@ -24,6 +27,7 @@ export default function MyRangePicker({
           onChange={(momentArr) => {
             return onChange(momentArr ? momentArr.map(moment => moment.startOf('day').utc().valueOf()) : [null, null])
           }}
+          disabledDate={current => current && current > moment().endOf('day')}
           {...extra}
         />)
         : (<RangePicker
@@ -31,6 +35,7 @@ export default function MyRangePicker({
           onChange={(momentArr) => {
             return onChange(momentArr ? momentArr.map(moment => moment.startOf('day').utc().unix()) : [null, null])
           }}
+          disabledDate={current => current && current > moment().endOf('day')}
           {...extra}
         />)
       break;
@@ -40,6 +45,7 @@ export default function MyRangePicker({
         onChange={(momentArr) => {
           return onChange(momentArr ? momentArr.map(moment => moment.startOf('day').utc().format(format)) : [null, null])
         }}
+        disabledDate={current => current && current > moment().endOf('day')}
         {...extra}
       />)
       break;
