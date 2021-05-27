@@ -15,7 +15,7 @@ const curTime = new Date().toLocaleTimeString();
 const dateTimeStr = curTime;
 
 const webpackConfigProd = {
-  mode: 'production',
+  mode: 'development',
 
   entry: {
     app: [resolve('../src/components/index.js')],
