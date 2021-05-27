@@ -1,8 +1,7 @@
 # .npmignore 
-src
+# src
+# scripts
+# public
 .babelrc
 .gitignore
-public
-scripts
 node_modules
-index.js
