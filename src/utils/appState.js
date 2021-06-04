@@ -65,7 +65,7 @@ const _fetch = () => {
           // console.log(result, 'result')
           const { data } = result;
           if (result.code !== 200) {
-            message.error(data.message || "服务器异常！");
+            message.error(data && data.message || "服务器异常！");
             return;
           }
           // 将拦截器处理后的响应结果resolve出去

@@ -31,8 +31,9 @@ function SearchTop({ content }) {
   }))();
 
   return (<div className={classes.SearchTop}>
-    { content.map(item => {
-      const { node, label, key, info, ...extra } = item;
+    { content.map((item, index) => {
+      const { node, label, key: defaultKey, info, ...extra } = item;
+      let key = defaultKey || index;
       let result;
       switch (node) {
         case 'SearchItem':
