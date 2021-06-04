@@ -1,5 +1,7 @@
+console.log(buildEnv, appName, 'buildEnv , appName');
 const buildEnv = buildEnv || "pre-release";
 const appName = appName || "SAAS";
+
 
 class InitEnv {
   constructor() {
