@@ -4,7 +4,7 @@
   "main": "lib/component-library.js",
   "scripts": {
     "init": "eslint --init",
-    "build:yalc": "webpack --config ./scripts/webpack.prod.config.js && yalc push",
+    "build": "webpack --config ./scripts/webpack.prod.config.js",
     "start": "webpack-dev-server --config ./scripts/webpack.dev.config.js",
     "eslint:fix": "eslint --fix ./src/test.jsx",
     "lint": "eslint ./src/test.jsx",
