@@ -1,8 +1,5 @@
-console.log(buildEnv, appName, 'buildEnv , appName');
-const buildEnv = buildEnv || "pre-release";
-const appName = appName || "SAAS";
 
-
+console.log(buildEnv, appName, 'buildEnv, appName');
 class InitEnv {
   constructor() {
     this.notLoginUrl = `http://${buildEnv === "online" ? "" : "pre-new-saas."}zxhj618.com/login`;
