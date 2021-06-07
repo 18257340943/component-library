@@ -11,8 +11,8 @@ import {
   ImageUpload,
   MyInputNumber
 } from './components';
-import initEnv from '@/utils/initEnv';
-import { getCookie, setCookie } from '@/utils/cookie';
+import initEnv from './utils/initEnv';
+
 
 const { cookieName, baseUrl } = initEnv;
 import { Input } from 'antd';
@@ -34,7 +34,7 @@ const App = () => {
 
   return (
     <div>
-      123
+      <MyButton onClick={() => { }} title="标题" />
       {/* <ChangeButton /> */}
       <FormContent content={[
         {

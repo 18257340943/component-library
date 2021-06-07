@@ -16,18 +16,15 @@ const dateTimeStr = curTime;
 
 const webpackConfigProd = {
   mode: 'development',
-
   entry: {
     app: [resolve('../src/components/index.js')],
   },
-
   output: {
     filename: 'component-library.js',
     path: resolve('../lib'),
     libraryTarget: 'commonjs2'
   },
-
-  devtool: 'source-map',  //或使用'cheap-module-source-map'、'none'
+  devtool: 'none',  //或使用'cheap-module-source-map'、'none'
   optimization: {
     minimizer: [
       // 压缩js代码

@@ -4,7 +4,7 @@ import { PlusOutlined } from '@ant-design/icons';
 import PropTypes from 'prop-types';
 
 
-import appState from '@/utils/appState'
+import appState from '../utils/appState'
 
 
 const leaveFileList = (fileList, single, status) => {
