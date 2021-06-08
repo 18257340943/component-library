@@ -1,23 +1,14 @@
-const path = require('path');
+const { resolve } = require('path');
 const webpack = require('webpack');
 const webpackConfigBase = require('./webpack.base.config');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { merge } = require('webpack-merge');
 
-function resolve(relatedPath) {
-  return path.join(__dirname, relatedPath)
-}
-
-
 const webpackConfigDev = {
   mode: 'development',
-
-  entry: {
-    app: [resolve('../src/index.js')],
-  },
-
+  entry: resolve(__dirname, '../src/test/index.js'),
   output: {
-    path: resolve('../build'),
+    path: resolve(__dirname, '../build'),
     filename: 'index.js',
   },
 

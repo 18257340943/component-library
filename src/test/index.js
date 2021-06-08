@@ -10,8 +10,8 @@ import {
   StaticSelect,
   ImageUpload,
   MyInputNumber
-} from './components';
-import initEnv from './utils/initEnv';
+} from '../components';
+import initEnv from '../utils/initEnv';
 
 
 const { cookieName, baseUrl } = initEnv;

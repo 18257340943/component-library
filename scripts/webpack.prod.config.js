@@ -1,4 +1,4 @@
-const path = require('path');
+const { resolve } = require('path');
 const webpack = require('webpack');
 const nodeExternals = require('webpack-node-externals');
 const webpackConfigBase = require('./webpack.base.config');
@@ -7,24 +7,15 @@ const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const { merge } = require('webpack-merge');
 
-function resolve(relatedPath) {
-  return path.join(__dirname, relatedPath)
-}
-const curDate = new Date().toLocaleDateString();
-const curTime = new Date().toLocaleTimeString();
-const dateTimeStr = curTime;
-
 const webpackConfigProd = {
   mode: 'development',
-  entry: {
-    app: [resolve('../src/components/index.js')],
-  },
+  entry: resolve(__dirname, '../src/test/index.js'),
   output: {
     filename: 'component-library.js',
     path: resolve('../lib'),
     libraryTarget: 'commonjs2'
   },
-  devtool: 'none',  //或使用'cheap-module-source-map'、'none'
+  devtool: 'cheap-module-source-map',  //或使用'cheap-module-source-map'、'none'
   optimization: {
     minimizer: [
       // 压缩js代码
@@ -41,7 +32,6 @@ const webpackConfigProd = {
     ],
   },
   externals: [nodeExternals()],  // 通过nodeExternals()将打包组件内的react等依赖给去除了
-
   plugins: [
     new CleanWebpackPlugin()     //每次执行都将清空一下./dist目录
   ]
