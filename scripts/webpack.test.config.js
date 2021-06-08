@@ -5,7 +5,7 @@ const { resolve } = path;
 
 module.exports = {
   mode: 'development',
-  entry: resolve(__dirname, '../src/components/index.js'),
+  entry: resolve(__dirname, '../src/test/index.js'),
   output: {
     filename: './js/[name].js',
     path: resolve(__dirname, '../lib')
@@ -14,12 +14,9 @@ module.exports = {
   module: webpackBase.module,
   devServer: webpackBase.devServer,
   plugins: [
-    webpackBase.plugins.cleanWebpack,
     webpackBase.plugins.html,
-    webpackBase.plugins.miniCssExtract,
     webpackBase.plugins.DefinePlugin,
   ],
-  optimization: webpackBase.optimization,
   devtool: webpackBase.devtool
 }
 

@@ -34,14 +34,6 @@ const commonCssLoader = [
 ];
 
 module.exports = {
-  entry: resolve(__dirname, '../src/test/index.js'),
-  output: {
-    filename: './js/[name].js',
-    path: resolve(__dirname, '../lib')
-    // filename: 'component-library.js',
-    // path: resolve(__dirname, '../lib'),
-    // libraryTarget: 'commonjs2'
-  },
   devtool: 'eval-cheap-module-source-map',
   devServer: {
     contentBase: resolve(__dirname, '../lib'),
