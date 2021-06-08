@@ -10,9 +10,8 @@ import {
   StaticSelect,
   ImageUpload,
   MyInputNumber
-} from '../components';
-import initEnv from '../utils/initEnv';
-
+} from '@/components';
+import initEnv from '@/utils/initEnv';
 
 const { cookieName, baseUrl } = initEnv;
 import { Input } from 'antd';
@@ -31,7 +30,7 @@ const App = () => {
   //   data[key] = value;
   //   setData({ ...data });
   // }
-
+  console.log('test.js 文件执行啦~')
   return (
     <div>
       <MyButton onClick={() => { }} title="标题" />

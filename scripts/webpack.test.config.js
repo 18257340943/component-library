@@ -12,6 +12,7 @@ module.exports = {
   },
   resolve: webpackBase.resolve,
   module: webpackBase.module,
+  devServer: webpackBase.devServer,
   plugins: [
     webpackBase.plugins.cleanWebpack,
     webpackBase.plugins.html,

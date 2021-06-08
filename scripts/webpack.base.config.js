@@ -1,17 +1,18 @@
 const path = require('path');
-
-const TerserJSPlugin = require('terser-webpack-plugin');
 const webpack = require('webpack');
-const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+// const TerserJSPlugin = require('terser-webpack-plugin');
 
 const { resolve } = path;
 const srcDir = path.join(__dirname, '../src');
-// console.log(process.env, 'process.env');
 
+const buildEnv = process.env.BUILD_ENV;
 // 复用loader
 const commonCssLoader = [
-  devMode ? 'style-loader' : {
+  buildEnv === "native-dev" ? 'style-loader' : {
     loader: MiniCssExtractPlugin.loader,
     options: {
       publicPath: '../',
@@ -35,18 +36,20 @@ const commonCssLoader = [
 module.exports = {
   entry: resolve(__dirname, '../src/test/index.js'),
   output: {
-    filename: 'component-library.js',
-    path: resolve('../lib'),
-    libraryTarget: 'commonjs2'
+    filename: './js/[name].js',
+    path: resolve(__dirname, '../lib')
+    // filename: 'component-library.js',
+    // path: resolve(__dirname, '../lib'),
+    // libraryTarget: 'commonjs2'
   },
+  devtool: 'eval-cheap-module-source-map',
   devServer: {
-    contentBase: resolve('../lib/component-library.js'),
+    contentBase: resolve(__dirname, '../lib'),
     hot: true,
     // open: true,
     host: 'localhost',
     port: 8080,
   },
-  //module此处为loader区域，一般文件内容解析，处理放在此处，如babel，less,postcss转换等
   module: {
     rules: [
       {
@@ -61,19 +64,7 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        use: [
-          BUILD_ENV === "native-dev" ? 'style-loader' : ,
-          'css-loader',
-          {
-            loader: 'postcss-loader',
-            options: {
-              ident: 'postcss',
-              plugins: (loader) => [
-                require('autoprefixer')()
-              ],
-            }
-          }
-        ]
+        use: [...commonCssLoader]
       }
     ]
   },
@@ -85,8 +76,24 @@ module.exports = {
     extensions: ['.js', '.jsx']
   },
   plugins: {
+    // 清理dist包
+    cleanWebpack: new CleanWebpackPlugin(),
+    // 配置入口页面
+    html: new HtmlWebpackPlugin({ template: './public/index.html' }),
+    // 热更新
+    hotModuleReplacement: new webpack.HotModuleReplacementPlugin(),
+    // 全局变量
     DefinePlugin: new webpack.DefinePlugin({
-      'BUILD_ENV': JSON.stringify(BUILD_ENV)
+      'buildEnv': JSON.stringify(process.env.BUILD_ENV),
+      'appName': JSON.stringify(process.env.APP_NAME)
+    }),
+    miniCssExtract: new MiniCssExtractPlugin({
+      filename: `css/[name].[contenthash:10].css`
     })
-  }
+  },
+  optimization: {
+    minimize: true,
+    minimizer: [new CssMinimizerPlugin()],
+    splitChunks: { chunks: 'all' }
+  },
 }

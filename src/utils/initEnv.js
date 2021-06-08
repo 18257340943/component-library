@@ -1,5 +1,4 @@
-
-console.log(buildEnv, appName, 'buildEnv, appName');
+console.log(buildEnv, appName, 'buildEnv ,appName');
 class InitEnv {
   constructor() {
     this.notLoginUrl = `http://${buildEnv === "online" ? "" : "pre-new-saas."}zxhj618.com/login`;
