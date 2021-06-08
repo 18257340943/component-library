@@ -12,7 +12,7 @@ const webpackConfigProd = {
   entry: resolve(__dirname, '../src/test/index.js'),
   output: {
     filename: 'component-library.js',
-    path: resolve('../lib'),
+    path: resolve(__dirname, '../lib'),
     libraryTarget: 'commonjs2'
   },
   devtool: 'cheap-module-source-map',  //或使用'cheap-module-source-map'、'none'
