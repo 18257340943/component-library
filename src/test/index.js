@@ -10,7 +10,7 @@ import {
   StaticSelect,
   ImageUpload,
   MyInputNumber
-} from '../components';
+} from '../../lib/component-library';
 import initEnv from '../utils/initEnv';
 
 

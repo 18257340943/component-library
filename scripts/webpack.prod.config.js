@@ -9,13 +9,13 @@ const { merge } = require('webpack-merge');
 
 const webpackConfigProd = {
   mode: 'development',
-  entry: resolve(__dirname, '../src/test/index.js'),
+  entry: resolve(__dirname, '../src/components/index.js'),
   output: {
     filename: 'component-library.js',
     path: resolve(__dirname, '../lib'),
     libraryTarget: 'commonjs2'
   },
-  devtool: 'cheap-module-source-map',  //或使用'cheap-module-source-map'、'none'
+  devtool: 'source-map',  //或使用'cheap-module-source-map'、'none'
   optimization: {
     minimizer: [
       // 压缩js代码
@@ -30,6 +30,7 @@ const webpackConfigProd = {
       //压缩css代码
       new OptimizeCSSAssetsPlugin()
     ],
+    // splitChunks: { chunks: 'all' }
   },
   externals: [nodeExternals()],  // 通过nodeExternals()将打包组件内的react等依赖给去除了
   plugins: [
