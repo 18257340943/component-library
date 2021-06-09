@@ -15,6 +15,7 @@ import ComImg from './ComImg';
 import theme from './theme';
 import RadioButtons from './RadioButtons';
 import MySwitch from './MySwitch';
+import SpuInfo from './SpuInfo';
 import appState from '../utils/appState';
 import initEnv from '../utils/initEnv';
 
@@ -35,6 +36,7 @@ export {
   ComImg,
   RadioButtons,
   MySwitch,
+  SpuInfo,
   appState,
   initEnv,
   theme,
