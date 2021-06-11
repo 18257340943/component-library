@@ -133,7 +133,7 @@ ImageUpload.propTypes = {
 };
 ImageUpload.defaultProps = {
   value: '',
-  uploadMax: 5,
+  uploadMax: 1,
   onChange: () => { },
   single: true,
   style: {
