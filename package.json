@@ -9,7 +9,7 @@
     "start": "webpack-dev-server --config ./scripts/webpack.dev.config.js",
     "eslint:fix": "eslint --fix ./src/test.jsx",
     "lint": "eslint ./src/test.jsx",
-    "setNpmOrg": "npm version patch && npm config set registry 'http://registry.npmjs.org/'",
+    "setNpmOrg": "npm version patch && npm config set registry 'http://registry.npmjs.org'",
     "setTbOrg": "npm config set registry 'https://registry.npm.taobao.org'",
     "prebuild:publish": "npm run setNpmOrg",
     "postbuild:publish": "npm run setTbOrg",
