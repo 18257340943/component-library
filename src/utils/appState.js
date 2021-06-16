@@ -58,8 +58,12 @@ const _fetch = () => {
             // 拦截器对响应结果做  处理，把处理后的结果返回给响应结果。
             res = interceptors(res);
           });
-          // console.log(res, 'res');
-          return res.json();
+          const ossUrl = "http://cdn-oss-data-zxhj.oss-cn-zhangjiakou.aliyuncs.com/";
+          if (res.url === ossUrl && res.status === 200) {
+            return new Promise((resolve, reject) => { resolve({ code: 200 }) });
+          } else {
+            return res.json();
+          }
         })
         .then(result => {
           // console.log(result, 'result')
@@ -94,9 +98,10 @@ const _fetch = () => {
 
 class AppState {
   constructor(fetch) {
+    // console.log('fetch测试开始了');
     this._fetch = fetch;
     this.baseUrl = initEnv.baseUrl;
-    console.log(AppState.loginToken, 'AppState.loginToken')
+    // console.log(AppState.loginToken, 'AppState.loginToken')
   }
 
   // 针对请求路径和配置做进一步处理啊
@@ -142,9 +147,66 @@ class AppState {
     return response;
   }
 
+  getOSS() {
+    return this.fetch('/upload/uploadPolicy', {
+      method: "GET"
+    })
+  }
+
+  // 新增文件上传通用服务
+  uploadFile(info = {}) {
+    const { file } = info;
+    const { size, name } = file;
+    const unOssFileMaxSize = 5 * 1024 * 1024;   // 精确到字节 默认最大 5MB
+    return new Promise((resolve) => {
+      if (size < unOssFileMaxSize) {
+        const formData = new FormData();
+        formData.append('file', info.file);
+        this.fetch('/upload', {
+          body: formData,
+        }).then(data => {
+          const { link } = data;
+          resolve(link);
+        })
+      } else {
+        this.getOSS().then(data => {
+          const { accessid, cdnPath, dir, host, policy, signature } = data;
+          const ossFormData = new FormData();
+          ossFormData.append('key', `${dir}${name}`); //存储在oss的文件路径
+          ossFormData.append('policy', policy); //policy
+          ossFormData.append('OSSAccessKeyId', accessid); //accessKeyId
+          ossFormData.append('success_action_status', "200"); //成功后返回的操作码
+          ossFormData.append('signature', signature); //签名
+          ossFormData.append("file", file);
+          this.fetch(host, {
+            initUrl: host,
+            method: 'POST',
+            body: ossFormData
+          }).then(data => {
+            resolve({
+              link: cdnPath + name
+            })
+          })
+
+        })
+
+      }
+
+
+    })
+
+
+  }
+
   fetch(url, init) {
     const c_fetch = this._fetch();
-    const { newURL, newINIT } = this.updateParams(url, init);
+    let { newURL, newINIT } = this.updateParams(url, init);
+    // fetch请求可通过 init配置覆盖url
+    const { initUrl } = newINIT;
+    if (initUrl) {
+      newURL = initUrl;
+    }
+    // console.log(newURL, 'newURL');
     // console.log(newURL, 'newUrl')
     c_fetch.interceptors.request.use(AppState.requestIntercept);
     c_fetch.interceptors.response.use(AppState.responseIntercept);

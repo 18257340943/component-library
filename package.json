@@ -5,15 +5,15 @@
   "scripts": {
     "init": "eslint --init",
     "build": "webpack --config ./scripts/webpack.prod.config.js",
-    "build:yalc": "webpack --config ./scripts/webpack.prod.config.js && yalc push",
     "start": "webpack-dev-server --config ./scripts/webpack.dev.config.js",
     "eslint:fix": "eslint --fix ./src/test.jsx",
     "lint": "eslint ./src/test.jsx",
-    "setNpmOrg": "npm version patch && npm config set registry 'http://registry.npmjs.org'",
+    "setNpmOrg": "npm config set registry 'http://registry.npmjs.org'",
     "setTbOrg": "npm config set registry 'https://registry.npm.taobao.org'",
-    "prebuild:publish": "npm run setNpmOrg",
+    "prebuild:publish": "npm run setNpmOrg && npm version patch",
     "postbuild:publish": "npm run setTbOrg",
-    "build:publish": "npm run build && npm publish --access public"
+    "build:publish": "npm run build && npm publish --access public",
+    "watch": "nodemon"
   },
   "devDependencies": {
     "@babel/core": "^7.14.3",

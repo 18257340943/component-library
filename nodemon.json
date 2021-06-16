@@ -1,0 +1,12 @@
+{
+  "ext": "js,jsx,css",
+  "verbose": false,
+  "ignore": [
+    "lib/",
+    "node_modules/"
+  ],
+  "watch": "src/",
+  "exec": "npm run build",
+  "debug": true,
+  "delay": 1000
+}
