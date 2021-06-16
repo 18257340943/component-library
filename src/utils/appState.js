@@ -166,7 +166,7 @@ class AppState {
           body: formData,
         }).then(data => {
           const { link } = data;
-          resolve(link);
+          resolve({ link });
         })
       } else {
         this.getOSS().then(data => {
