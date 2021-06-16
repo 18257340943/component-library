@@ -19,6 +19,7 @@ export default function SearchInput({
   queryField,       // onChange时请求参数
   initQueryField,   // 首次渲染的请求参数
   paramType,        // 请求类型
+  headers,          // 初始化 fetch 头部
 
   dataIndex,        // list数据源对应字段映射
   url,
@@ -27,7 +28,7 @@ export default function SearchInput({
   loading,          // 部分搜索下拉框value值更新依赖于其他业务接口的loading状态
   ...extra
 }) {
-  console.log(isInit, 'isInit');
+  // console.log(isInit, 'isInit');
   const [data, setData] = useState(initList);
 
   const handleSearch = useDebounce(async (value, queryField) => {
@@ -35,6 +36,7 @@ export default function SearchInput({
 
     const data = await appState.fetch(`/${url}`, {
       method: "GET",
+      headers,
       [paramType]: {
         ...defaultPage,
         [queryField]: value
@@ -94,7 +96,7 @@ SearchInput.propTypes = {
   schema: PropTypes.object,
   loading: PropTypes.bool,
   labelInValue: PropTypes.bool,
-  // isCheckHeader: PropTypes.bool,
+  headers: PropTypes.object,
   style: PropTypes.object,
   paramType: PropTypes.oneOf(['search', 'body', 'inline']),
 }
@@ -109,6 +111,7 @@ SearchInput.defaultProps = {
     pageNum: 1,
     pageSize: 10
   },
+  headers: {},
   dataIndex: ['records'],
   queryField: "name",
   initQueryField: "name",

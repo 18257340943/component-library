@@ -8,12 +8,10 @@
     "start": "webpack-dev-server --config ./scripts/webpack.dev.config.js",
     "eslint:fix": "eslint --fix ./src/test.jsx",
     "lint": "eslint ./src/test.jsx",
-    "setNpmOrg": "nrm use npm",
-    "setTbOrg": "nrm use taobao",
-    "prebuild:publish": "npm run setNpmOrg && npm version patch",
-    "postbuild:publish": "npm run setTbOrg",
-    "build:publish": "npm run build && npm publish --access public",
-    "watch": "nodemon"
+    "build:publish": "npm run build && npm version patch && npm publish --access public",
+    "watch": "nodemon",
+    "prepublish": "nrm use npm",
+    "postpublish": "nrm use taobao"
   },
   "devDependencies": {
     "@babel/core": "^7.14.3",
@@ -47,6 +45,7 @@
     "webpack-merge": "^5.0.9",
     "webpack-node-externals": "^2.5.0"
   },
+  "registory": {},
   "dependencies": {
     "@material-ui/styles": "^4.11.3",
     "antd": "^4.15.2",
