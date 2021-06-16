@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 
 import theme from './theme'
 
-function SearchTop({ content }) {
+function SearchTop({ content, ...extra }) {
 
   content = content.filter(item => item);
   const classes = makeStyles(() => ({
@@ -30,8 +30,8 @@ function SearchTop({ content }) {
     Custom: {}
   }))();
 
-  return (<div className={classes.SearchTop}>
-    { content.map((item, index) => {
+  return (<div className={classes.SearchTop} {...extra}>
+    {content.map((item, index) => {
       const { node, label, key: defaultKey, info, ...extra } = item;
       let key = defaultKey || index;
       let result;
