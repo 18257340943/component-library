@@ -76,7 +76,7 @@ const _fetch = () => {
           }
           // 部分接口通过data中的 succeed? 判断
           if (data.succeed === 0) {
-            message.error(data && data.message || "服务器异常！");
+            message.error(data && data.msg || "服务器异常！");
             return;
           }
           // 将拦截器处理后的响应结果resolve出去
