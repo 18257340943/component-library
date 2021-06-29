@@ -10,8 +10,7 @@
     "lint": "eslint ./src/test.jsx",
     "build:publish": "npm run build && npm version patch && npm publish --access public",
     "watch": "nodemon",
-    "prepublish": "nrm use npm",
-    "postpublish": "nrm use taobao"
+    "prepublish": "nrm use npm"
   },
   "devDependencies": {
     "@babel/core": "^7.14.3",
