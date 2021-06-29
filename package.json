@@ -8,9 +8,10 @@
     "start": "webpack-dev-server --config ./scripts/webpack.dev.config.js",
     "eslint:fix": "eslint --fix ./src/test.jsx",
     "lint": "eslint ./src/test.jsx",
-    "build:publish": "npm run build && npm version patch && npm publish --access public",
+    "build:publish": "npm run build && npm publish --access public",
     "watch": "nodemon",
-    "prepublish": "nrm use npm"
+    "prepublish": "nrm use npm",
+    "postpublish": "nrm use taobao"
   },
   "devDependencies": {
     "@babel/core": "^7.14.3",
