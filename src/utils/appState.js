@@ -1,3 +1,5 @@
+/* eslint-disable camelcase */  // 允许使用_下划线命名形式
+
 import { message } from "antd";
 
 import { getCookie } from "./cookie";
@@ -47,7 +49,6 @@ const _fetch = () => {
     // 在原生fetch外面封装一个promise，为了在promise里面可以对fetch请求的结果做拦截处理。
     // 同时，保证c_fetch函数返回的结果是个promise对象。
 
-    // console.log(input, init, 'input, init')
     return new Promise((resolve, reject) => {
       // 发起fetch请求，fetch请求的形参是接收上层函数的形参
       fetch(input, init)
@@ -58,6 +59,7 @@ const _fetch = () => {
             // 拦截器对响应结果做  处理，把处理后的结果返回给响应结果。
             res = interceptors(res);
           });
+          // OSS 签名认证特殊处理
           const ossUrl = "http://cdn-oss-data-zxhj.oss-cn-zhangjiakou.aliyuncs.com/";
           if (res.url === ossUrl && res.status === 200) {
             return new Promise((resolve, reject) => { resolve({ code: 200 }) });
@@ -66,9 +68,14 @@ const _fetch = () => {
           }
         })
         .then(result => {
-          // console.log(result, 'result')
-          const { data } = result;
-          if (result.code !== 200) {
+          const { data, code } = result;
+          // 通过 code === 200? 认证直接报错
+          if (code !== 200) {
+            message.error(data && data.message || "服务器异常！");
+            return;
+          }
+          // 部分接口通过data中的 succeed? 判断
+          if (data.succeed === 0) {
             message.error(data && data.message || "服务器异常！");
             return;
           }
@@ -97,18 +104,12 @@ const _fetch = () => {
 };
 
 class AppState {
+
   constructor(fetch) {
     // console.log('fetch测试开始了');
     this._fetch = fetch;
     this.baseUrl = initEnv.baseUrl;
     // console.log(AppState.loginToken, 'AppState.loginToken')
-  }
-
-  // 针对请求路径和配置做进一步处理啊
-  updateParams(url, init) {
-    url = this.baseUrl + url;
-    const { newURL, newINIT } = addSearch(url, init);
-    return { newURL, newINIT };
   }
 
   static loginToken = getCookie(initEnv.cookieName);
@@ -145,6 +146,13 @@ class AppState {
 
   static responseIntercept(response) {
     return response;
+  }
+
+  // 针对请求路径和配置做进一步处理啊
+  updateParams(url, init) {
+    url = this.baseUrl + url;
+    const { newURL, newINIT } = addSearch(url, init);
+    return { newURL, newINIT };
   }
 
   getOSS() {
