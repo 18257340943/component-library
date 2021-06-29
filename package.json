@@ -8,7 +8,7 @@
     "start": "webpack-dev-server --config ./scripts/webpack.dev.config.js",
     "eslint:fix": "eslint --fix ./src/test.jsx",
     "lint": "eslint ./src/test.jsx",
-    "build:publish": "npm run build && npm patch version &&  npm publish --access public",
+    "build:publish": "npm run build && npm version patch && npm publish --access public",
     "watch": "nodemon"
   },
   "devDependencies": {
