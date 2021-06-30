@@ -24,6 +24,7 @@ export default function SpuInfo({ topList, bottomList, mainPic, style }) {
       display: "flex",
       flexDirection: "row",
       alignItems: "center",
+      justifyContent: 'center'
     };
 
     return {
