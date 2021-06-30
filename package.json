@@ -9,7 +9,7 @@
     "eslint:fix": "eslint --fix ./src/test.jsx",
     "lint": "eslint ./src/test.jsx",
     "build:publish": "npm run build && npm version patch && npm publish --access public",
-    "postinstall": "nrm use taobao",
+    "postbuild:publish": "nrm use taobao",
     "watch": "nodemon"
   },
   "devDependencies": {
