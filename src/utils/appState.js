@@ -112,11 +112,12 @@ class AppState {
     // console.log(AppState.loginToken, 'AppState.loginToken')
   }
 
-  static loginToken = getCookie(initEnv.cookieName);
+  // static loginToken = getCookie(initEnv.cookieName);
 
   static requestIntercept(config) {
     let { body } = config;
     let { headers } = config;
+    const loginToken = getCookie(initEnv.cookieName);
     headers = removeEmptyField(headers);
 
     const defaultHeaders = new Headers({
@@ -133,8 +134,8 @@ class AppState {
     }
 
     // 请求前拦截，用户登录情况下写入请求头token
-    if (AppState.loginToken && AppState.loginToken !== "undefined") {
-      defaultHeaders.append("Authorization", `Bearer ${AppState.loginToken}`);
+    if (loginToken && loginToken !== "undefined") {
+      defaultHeaders.append("Authorization", `Bearer ${loginToken}`);
     }
 
     return {
