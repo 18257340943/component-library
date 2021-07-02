@@ -1,7 +1,7 @@
 console.log(buildEnv, appName, 'buildEnv, appName');
 class InitEnv {
   constructor() {
-    this.notLoginUrl = `//${buildEnv === "online" ? "" : "pre-new-saas."}zxhj618.com/login`;
+    this.notLoginUrl = `//${buildEnv === "online" ? "" : "pre."}zxhj618.com/login`;
     this.baseUrl = `//${buildEnv === "online" ? "" : "pre-"}main-service.zxhj618.com`;
     this.mallUrl = `//${buildEnv === "online" ? "" : "pre-"}saas-mall.zxhj618.com`;
     this.cookieName = this.matchCookieName();
