@@ -8,7 +8,7 @@
     "start": "webpack-dev-server --config ./scripts/webpack.dev.config.js",
     "eslint:fix": "eslint --fix ./src/test.jsx",
     "lint": "eslint ./src/test.jsx",
-    "patch": "npm version patch –no-git-tag-version",
+    "patch": "npm version patch",
     "build:publish": "npm run build && npm run patch && npm publish --access public",
     "postbuild:publish": "nrm use taobao",
     "watch": "nodemon"
