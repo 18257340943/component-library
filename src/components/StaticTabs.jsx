@@ -10,7 +10,7 @@ export default function StaticTabs({ list, value, onChange, ...extra }) {
       onChange={onChange}
       {...extra}
     >
-      { list.map(tab => (<Tabs.TabPane tab={tab.label} key={tab.value} />))}
+      {list.map(tab => (<Tabs.TabPane tab={tab.label} key={tab.value} />))}
     </Tabs>);
 }
 

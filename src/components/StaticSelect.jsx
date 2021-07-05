@@ -11,7 +11,7 @@ function StaticSelect({ list, schema, value, onChange, placeholder, style, ...ex
       allowClear
       placeholder={placeholder}
       onChange={onChange} {...extra} >
-      { list.map(option => {
+      {list.map(option => {
         return (<Option
           value={option[schema.value]}
           key={option[schema.key]}

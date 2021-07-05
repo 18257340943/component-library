@@ -35,7 +35,6 @@ const App = () => {
 
   return (
     <div>
-      <MyButton />
       {/* <ChangeButton /> */}
       <FormContent content={[
         {

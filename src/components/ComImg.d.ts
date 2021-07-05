@@ -1,8 +1,15 @@
+import React from "react";
 
 
-
-
-interface CompoundedComponent extends React.ForwardRefExoticComponent<ButtonProps & React.RefAttributes<HTMLElement>> {
-  Group: typeof Group;
-  __ANT_BUTTON: boolean;
+interface ComImgProps {
+  src: string,
+  style: object,
+  className: string
 }
+
+
+
+declare const ComImg: React.FC<ComProps>;
+
+export default ComImg;
+

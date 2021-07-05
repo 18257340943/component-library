@@ -1,17 +1,16 @@
 import { ButtonProps } from "antd";
-import { ReactNode, Component } from 'react';
-
+import React from "react";
 
 
 interface MyButtonProps extends ButtonProps {
   title: string,
   type: string,
   onClick: () => {},
-  children: ReactNode
+  children: React.ReactChildren
 }
 
 
-declare const MyButton: Component<MyButtonProps>;
+declare const MyButton: React.FC<MyButtonProps>;
 
 export default MyButton;
 
