@@ -1,7 +1,7 @@
 import React, { useState, useCallback } from 'react';
 import ReactDOM from 'react-dom';
 import {
-  MyButton,
+  // MyButton,
   FormContent,
   MyDatePicker,
   MyRangePicker,
@@ -12,8 +12,7 @@ import {
   ImageUpload,
   initEnv
 } from '../../lib/component-library';
-import appState from '../components';
-
+import { appState, MyButton } from '../components';
 console.log(initEnv, 'initEnv');
 const { cookieName } = initEnv;
 
@@ -36,7 +35,7 @@ const App = () => {
 
   return (
     <div>
-      <MyButton onClick={() => { }} title="标题" />
+      <MyButton />
       {/* <ChangeButton /> */}
       <FormContent content={[
         {

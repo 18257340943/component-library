@@ -1,6 +1,6 @@
 {
   "name": "@zxhj/component-library",
-  "version": "3.0.32",
+  "version": "3.0.38",
   "main": "lib/component-library.js",
   "scripts": {
     "init": "eslint --init",
@@ -9,16 +9,19 @@
     "eslint:fix": "eslint --fix ./src/test.jsx",
     "lint": "eslint ./src/test.jsx",
     "patch": "npm version patch --no-git-tag-version",
-    "build:publish": "npm run build && npm run patch && npm publish --access public",
-    "postbuild:publish": "nrm use taobao",
+    "build:publish": "npm run build && npm run patch && npm publish",
     "watch": "nodemon"
+  },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org",
+    "access": "public"
   },
   "files": [
     "src/**/*",
     "script/*",
     "lib/*"
   ],
-  "typings": "typings/index.d.ts",
+  "typings": "src/typings/index.d.ts",
   "devDependencies": {
     "@babel/core": "^7.14.3",
     "@babel/eslint-parser": "^7.14.7",
@@ -56,6 +59,7 @@
   "registory": {},
   "dependencies": {
     "@material-ui/styles": "^4.11.3",
+    "@types/react": "^17.0.13",
     "antd": "^4.15.2",
     "nodemon": "^2.0.7",
     "react": "^17.0.2",

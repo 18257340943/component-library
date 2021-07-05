@@ -1,7 +1,7 @@
 
 export declare const User: FC;
 export declare const People: FC;
-export declare const MyButton: FC;
+export { default as MyButton } from '../components/MyButton';
 export declare const FormContent: FC;
 export declare const ImageUpload: FC;
 export declare const MyInputNumber: FC;
@@ -15,7 +15,7 @@ export declare const ComImg: FC;
 export declare const RadioButtons: FC;
 export declare const MySwitch: FC;
 export declare const SpuInfo: FC;
-export type { appStateProps } from '@/utils/appState';
-export { default as appState } from '@/utils/appState';
-export declare const initEnv: object;
+export type { appStateProps } from '../utils/appState';
+export { default as appState } from '../utils/appState';
+export { default as initEnv } from '../utils/initEnv';
 export declare const theme: object;

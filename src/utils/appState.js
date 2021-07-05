@@ -134,6 +134,7 @@ class AppState {
   static requestIntercept(config) {
     let { body } = config;
     let { headers } = config;
+
     const loginToken = getCookie(initEnv.cookieName);
     headers = removeEmptyField(headers);
 

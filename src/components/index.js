@@ -19,7 +19,7 @@ import SpuInfo from './SpuInfo';
 import appState from '../utils/appState';
 import initEnv from '../utils/initEnv';
 
-console.log('测试目录6666')
+// console.log('测试目录6666')
 
 export {
   MyButton,

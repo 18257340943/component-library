@@ -1,5 +1,5 @@
-console.log(buildEnv, appName, 'buildEnv, appName');
-
+const buildEnv = buildEnv || "pre-release";
+const appName = appName || 'ZXHJ';
 
 class InitEnv {
   constructor() {
@@ -8,6 +8,7 @@ class InitEnv {
     this.mallUrl = `//${buildEnv === "online" ? "" : "pre-"}saas-mall.zxhj618.com`;
     this.cookieName = this.matchCookieName();
     this.homePage = `//${buildEnv === "online" ? "" : "pre."}zxhj618.com`;
+    this.rentMallUrl = `//${buildEnv === 'online' ? 'rent-mall' : 'pre-rent-mall'}.zxhj618.com`;
     this.domain = process.env.NODE_ENV === "production" ? "domain=zxhj618.com;" : "";
   }
 
