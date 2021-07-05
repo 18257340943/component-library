@@ -59,16 +59,34 @@ const _fetch = () => {
             // 拦截器对响应结果做  处理，把处理后的结果返回给响应结果。
             res = interceptors(res);
           });
+          // 批量导出特殊处理
+          const isXls = res.headers.get('content-type').indexOf("application/vnd.ms-excel") > -1;
           // OSS 签名认证特殊处理
           const ossUrl = "http://cdn-oss-data-zxhj.oss-cn-zhangjiakou.aliyuncs.com/";
           if (res.url === ossUrl && res.status === 200) {
             return new Promise((resolve, reject) => { resolve({ code: 200 }) });
+          } else if (isXls) {
+            return res.blob().then(blob => {
+              let url = window.URL.createObjectURL(blob);
+              let disposition = res.headers.get('Content-Disposition');
+              let filename = disposition ? disposition.split("=")[1] : '';
+              if (filename) {
+                filename = decodeURIComponent(filename);
+              }
+              let a = document.createElement('a');
+              a.href = url;
+              a.download = filename;
+              a.click();
+              window.URL.revokeObjectURL(url);
+              return { code: 200, data: true };
+            });
           } else {
             return res.json();
           }
         })
         .then(result => {
           const { data, code } = result;
+          console.log(result, 'result');
           // 通过 code === 200? 认证直接报错
           if (code !== 200) {
             message.error(data && data.message || "服务器异常！");

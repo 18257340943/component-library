@@ -6,15 +6,17 @@ import {
   MyDatePicker,
   MyRangePicker,
   SearchInput,
-  SearchTop,
+  MyInputNumber,
+  // SearchTop,
   StaticSelect,
   ImageUpload,
-  MyInputNumber
+  initEnv
 } from '../../lib/component-library';
-import initEnv from '../utils/initEnv';
+// import initEnv from '../utils/initEnv';
 
+console.log(initEnv, 'initEnv');
+const { cookieName } = initEnv;
 
-const { cookieName, baseUrl } = initEnv;
 import { Input } from 'antd';
 
 const App = () => {
