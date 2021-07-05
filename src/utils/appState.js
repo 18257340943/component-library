@@ -78,7 +78,7 @@ const _fetch = () => {
               a.download = filename;
               a.click();
               window.URL.revokeObjectURL(url);
-              return { code: 200, data: true };
+              return ({ code: 200, data: true });
             });
           } else {
             return res.json();
@@ -86,7 +86,7 @@ const _fetch = () => {
         })
         .then(result => {
           const { data, code } = result;
-          console.log(result, 'result');
+          // console.log(result, 'result');
           // 通过 code === 200? 认证直接报错
           if (code !== 200) {
             message.error(data && data.message || "服务器异常！");
@@ -129,7 +129,6 @@ class AppState {
     this.baseUrl = initEnv.baseUrl;
     // console.log(AppState.loginToken, 'AppState.loginToken')
   }
-
   // static loginToken = getCookie(initEnv.cookieName);
 
   static requestIntercept(config) {
@@ -242,3 +241,4 @@ class AppState {
 }
 
 export default new AppState(_fetch);
+

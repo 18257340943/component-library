@@ -1,0 +1,21 @@
+
+export declare const User: FC;
+export declare const People: FC;
+export declare const MyButton: FC;
+export declare const FormContent: FC;
+export declare const ImageUpload: FC;
+export declare const MyInputNumber: FC;
+export declare const MyDatePicker: FC;
+export declare const MyRangePicker: FC;
+export declare const SearchInput: FC;
+export declare const SearchTop: FC;
+export declare const StaticSelect: FC;
+export declare const StaticTabs: FC;
+export declare const ComImg: FC;
+export declare const RadioButtons: FC;
+export declare const MySwitch: FC;
+export declare const SpuInfo: FC;
+export type { appStateProps } from '@/utils/appState';
+export { default as appState } from '@/utils/appState';
+export declare const initEnv: object;
+export declare const theme: object;

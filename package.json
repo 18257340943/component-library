@@ -1,6 +1,6 @@
 {
   "name": "@zxhj/component-library",
-  "version": "3.0.30",
+  "version": "3.0.32",
   "main": "lib/component-library.js",
   "scripts": {
     "init": "eslint --init",
@@ -18,7 +18,7 @@
     "script/*",
     "lib/*"
   ],
-  "types": "./src/components/index.d.ts",
+  "typings": "typings/index.d.ts",
   "devDependencies": {
     "@babel/core": "^7.14.3",
     "@babel/eslint-parser": "^7.14.7",

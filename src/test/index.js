@@ -12,7 +12,7 @@ import {
   ImageUpload,
   initEnv
 } from '../../lib/component-library';
-// import initEnv from '../utils/initEnv';
+import appState from '../components';
 
 console.log(initEnv, 'initEnv');
 const { cookieName } = initEnv;
