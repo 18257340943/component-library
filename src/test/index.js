@@ -2,17 +2,23 @@ import React, { useState, useCallback } from 'react';
 import ReactDOM from 'react-dom';
 import {
   // MyButton,
-  FormContent,
-  MyDatePicker,
-  MyRangePicker,
-  SearchInput,
-  MyInputNumber,
+  // FormContent,
+  // MyDatePicker,
+  // MyRangePicker,
+  // SearchInput,
+  // MyInputNumber,
   // SearchTop,
-  StaticSelect,
-  ImageUpload,
-  initEnv
+  // StaticSelect,
+  // ImageUpload,
+  // initEnv
 } from '../../lib/component-library';
-import { appState, MyButton } from '../components';
+import {
+  appState, MyButton,
+  initEnv, MySwitch,
+  MyRangePicker, MyDatePickers,
+  FormContent, MyDatePicker,
+  MyInputNumber
+} from '../components';
 console.log(initEnv, 'initEnv');
 const { cookieName } = initEnv;
 
@@ -23,6 +29,7 @@ const App = () => {
 
   // 模拟预发账号token
   // if (!getCookie(cookieName)) { setCookie(cookieName, "eyJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6WyJBVURJVF9QVVJDSEFTRSIsIlBST0pFQ1RfRklOQU5DRSIsIkFVRElUX0JVSUxEIiwiU0hPUF9VU0VSIiwiQVVESVRfUFJPRFVDVCIsIkNMSUVOVF9BRE1JTiIsIlJFTlRfQURNSU4iLCJBVURJVF9DTEFTUyIsIlBST0pFQ1RfT1JERVIiLCJQUk9KRUNUX0FETUlOIiwiQVVESVRfRklOQU5DRSIsIkFVRElUX0FSRUEiLCJBVURJVF9NRUNISU5FIiwiQVVESVRfTEVHQUwiLCJQUk9KRUNUX1JFTlQiLCJQUk9KRUNUX0FVRElUIiwiUFJPSkVDVF9XQVJFSE9VU0UiLCJBVURJVF9QUk9KRUNUIiwiUFJPSkVDVF9ERVZJQ0UiLCJTSE9QX0FETUlOIiwiUFJPSkVDVF9QRVJTT04iLCJBVURJVF9TRUNVUklUWSIsIlJFTlRfVVNFUiIsIlBST0pFQ1RfVVNFUiIsIkFVRElUX1NUT1JFWSIsIkFVRElUX1JFQ0VJVkUiXSwidXNlcm5hbWUiOiJISCIsImlzcyI6InNpdGUuaGF5b25kLmFjY291bnQiLCJzdWIiOiI3OTMiLCJhdWQiOiJISCIsImlhdCI6MTYxOTc3Nzc2NSwiZXhwIjoxNjM1MzI5NzY1fQ.vjXlVjreF-b5VtM7xO2bElZ86jm94kccEt3aiirSMGI") }
+
 
   const updateData = useCallback((key, value) => {
     data[key] = value;
