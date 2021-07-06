@@ -1,5 +1,5 @@
-const buildEnv = buildEnv || "pre-release";
-const appName = appName || 'ZXHJ';
+// const buildEnv = buildEnv || "pre-release";
+// const appName = appName || 'ZXHJ';
 
 class InitEnv {
   constructor() {

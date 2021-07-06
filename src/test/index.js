@@ -1,20 +1,18 @@
 import React, { useState, useCallback } from 'react';
 import ReactDOM from 'react-dom';
 import {
-  // MyButton,
-  // FormContent,
-  // MyDatePicker,
-  // MyRangePicker,
-  // SearchInput,
-  // MyInputNumber,
-  // SearchTop,
-  // StaticSelect,
-  // ImageUpload,
-  // initEnv
+  MyButton,
+  FormContent,
+  MyDatePicker,
+  MyRangePicker,
+  SearchInput,
+  MyInputNumber,
+  SearchTop,
+  StaticSelect,
+  ImageUpload,
+  initEnv
 } from '../../lib/component-library';
-import {
-  appState, MyButton, initEnv, FormContent, MyInputNumber
-} from '../typings/index';
+
 console.log(initEnv, 'initEnv');
 const { cookieName } = initEnv;
 
@@ -39,7 +37,7 @@ const App = () => {
   return (
     <div>
       <MyButton title={"1231"} />
-      <MyInputNumber value onChange />
+      <MyInputNumber value={123} onChange={() => { }} />
       {/* <ChangeButton /> */}
       <FormContent
         content={[

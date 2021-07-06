@@ -34,6 +34,10 @@ const webpackConfigProd = {
   },
   externals: [nodeExternals()],  // 通过nodeExternals()将打包组件内的react等依赖给去除了
   plugins: [
+    new webpack.DefinePlugin({
+      "buildEnv": JSON.stringify(process.env.BUILD_ENV || 'pre-release'),
+      "appName": JSON.stringify(process.env.APP_NAME || 'SAAS')
+    }),
     new CleanWebpackPlugin()     //每次执行都将清空一下./dist目录
   ]
 }

@@ -26,8 +26,8 @@ const webpackConfigDev = {
     new HtmlWebpackPlugin({ template: './public/index.html', }),
     new webpack.NamedModulesPlugin(),
     new webpack.DefinePlugin({
-      "buildEnv": JSON.stringify('pre-release'),
-      "appName": JSON.stringify('SAAS')
+      "buildEnv": JSON.stringify(process.env.BUILD_ENV || 'pre-release'),
+      "appName": JSON.stringify(process.env.APP_NAME || 'SAAS')
     }),
     new webpack.HotModuleReplacementPlugin()
   ]
