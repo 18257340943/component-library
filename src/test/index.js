@@ -13,12 +13,8 @@ import {
   // initEnv
 } from '../../lib/component-library';
 import {
-  appState, MyButton,
-  initEnv, MySwitch,
-  MyRangePicker, MyDatePickers,
-  FormContent, MyDatePicker,
-  MyInputNumber
-} from '../components';
+  appState, MyButton, initEnv, FormContent, MyInputNumber
+} from '../typings/index';
 console.log(initEnv, 'initEnv');
 const { cookieName } = initEnv;
 
@@ -42,92 +38,95 @@ const App = () => {
 
   return (
     <div>
+      <MyButton title={"1231"} />
+      <MyInputNumber value onChange />
       {/* <ChangeButton /> */}
-      <FormContent content={[
-        {
-          node: "Title",
-          key: "Title",
-          label: "标题"
-        },
-        {
-          node: "FormItem",
-          key: 'input',
-          label: 'input',
-          info: <MyInputNumber />
-        },
-        {
-          node: "FormItem",
-          key: "ImageUpload",
-          label: "图片上传",
-          info: <ImageUpload
-            value={data.ImageUpload}
-            onChange={value => updateData('ImageUpload', value)} />
-        },
-        {
-          node: "SearchTop",
-          key: "SearchTop",
-          label: "审批流程",
-          info: [
-            {
-              node: "SearchItem",
-              key: "purchaseNum",
-              label: "采购单号",
-              info: <MyDatePicker isMs={true}
-                value={data.purchaseNum}
-                onChange={value => updateData('purchaseNum', value)} />
-            },
-            {
-              node: "SearchItem",
-              key: "2",
-              label: "流程编号",
-              info: <MyRangePicker isMs={true} value={[data.startTime, data.endTime]} onChange={valArr => {
-                console.log(valArr, 'valArr')
-                setData(
-                  {
-                    startTime: valArr[0],
-                    endTime: valArr[1]
-                  }
-                )
-              }} />
-            },
-            {
-              node: "Btn",
-              key: "Btn",
-              label: "查找",
-            },
-          ]
-        },
-        {
-          node: 'FormItem',
-          key: 'approvalInfo',
-          label: '项目列表',
-          info: <SearchInput
-            url="project"
-            schema={{
-              value: 'id',
-              key: 'id',
-              label: 'name'
-            }}
-            initQueryField="name"
-            queryField="name"
-          />
-        },
-        {
-          node: 'FormItem',
-          key: 'custom',
-          label: 'custom',
-          info: <Input />
-        },
-        {
-          node: "FormItem",
-          key: "purchaseTable",
-          label: "审批流程",
-          info: <StaticSelect list={[{
-            label: '一',
-            value: 1
-          }]} />
-        },
-      ]} />
+      <FormContent
+        content={[
+          {
+            node: "Title",
+            key: "Title",
+            label: "标题"
+          },
+          {
+            node: "FormItem",
+            key: 'input',
+            label: 'input',
+            info: <MyInputNumber />
+          },
+          {
+            node: "FormItem",
+            key: "ImageUpload",
+            label: "图片上传",
+            info: <ImageUpload
+              value={data.ImageUpload}
+              onChange={value => updateData('ImageUpload', value)} />
+          },
+          {
+            node: "SearchTop",
+            key: "SearchTop",
+            label: "审批流程",
+            info: [
+              {
+                node: "SearchItem",
+                key: "purchaseNum",
+                label: "采购单号",
+                info: <MyDatePicker isMs={true}
+                  value={data.purchaseNum}
+                  onChange={value => updateData('purchaseNum', value)} />
+              },
+              {
+                node: "SearchItem",
+                key: "2",
+                label: "流程编号",
+                info: <MyRangePicker isMs={true} value={[data.startTime, data.endTime]} onChange={valArr => {
+                  console.log(valArr, 'valArr')
+                  setData(
+                    {
+                      startTime: valArr[0],
+                      endTime: valArr[1]
+                    }
+                  )
+                }} />
+              },
+              {
+                node: "Btn",
+                key: "Btn",
+                label: "查找",
+              },
+            ]
+          },
+          {
+            node: 'FormItem',
+            key: 'approvalInfo',
+            label: '项目列表',
+            info: <SearchInput
+              url="project"
+              schema={{
+                value: 'id',
+                key: 'id',
+                label: 'name'
+              }}
+              initQueryField="name"
+              queryField="name"
+            />
+          },
+          {
+            node: 'FormItem',
+            key: 'custom',
+            label: 'custom',
+            info: <Input />
+          },
+          {
+            node: "FormItem",
+            key: "purchaseTable",
+            label: "审批流程",
+            info: <StaticSelect list={[{
+              label: '一',
+              value: 1
+            }]} />
+          },
+        ]} />
     </div>
   )
 }
