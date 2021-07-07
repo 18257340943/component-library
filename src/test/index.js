@@ -1,5 +1,6 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import ReactDOM from 'react-dom';
+import { Input, Button } from 'antd';
 import {
   MyButton,
   FormContent,
@@ -10,32 +11,66 @@ import {
   SearchTop,
   StaticSelect,
   ImageUpload,
-  initEnv
-} from '../../lib/component-library';
+  initEnv,
+  appState,
+  LoadingPage
+} from '../components';
 
-console.log(initEnv, 'initEnv');
+import { getCookie, setCookie } from '../utils/cookie';
+
 const { cookieName } = initEnv;
 
-import { Input } from 'antd';
+
+function useLoading(req) {
+  const [loading, setLoading] = useState(false);
+  const wrapReq = useCallback(
+    (...args) => {
+      setLoading(true);
+      return req(...args).then((data) => {
+        setLoading(false);
+        return Promise.resolve(data);
+      }).catch((reason) => {
+        setLoading(false);
+        return Promise.reject(reason);
+      });
+    },
+    [req]
+  );
+  return [loading, wrapReq];
+}
+
 
 const App = () => {
   const [data, setData] = useState({});
 
-  // 模拟预发账号token
-  // if (!getCookie(cookieName)) { setCookie(cookieName, "eyJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6WyJBVURJVF9QVVJDSEFTRSIsIlBST0pFQ1RfRklOQU5DRSIsIkFVRElUX0JVSUxEIiwiU0hPUF9VU0VSIiwiQVVESVRfUFJPRFVDVCIsIkNMSUVOVF9BRE1JTiIsIlJFTlRfQURNSU4iLCJBVURJVF9DTEFTUyIsIlBST0pFQ1RfT1JERVIiLCJQUk9KRUNUX0FETUlOIiwiQVVESVRfRklOQU5DRSIsIkFVRElUX0FSRUEiLCJBVURJVF9NRUNISU5FIiwiQVVESVRfTEVHQUwiLCJQUk9KRUNUX1JFTlQiLCJQUk9KRUNUX0FVRElUIiwiUFJPSkVDVF9XQVJFSE9VU0UiLCJBVURJVF9QUk9KRUNUIiwiUFJPSkVDVF9ERVZJQ0UiLCJTSE9QX0FETUlOIiwiUFJPSkVDVF9QRVJTT04iLCJBVURJVF9TRUNVUklUWSIsIlJFTlRfVVNFUiIsIlBST0pFQ1RfVVNFUiIsIkFVRElUX1NUT1JFWSIsIkFVRElUX1JFQ0VJVkUiXSwidXNlcm5hbWUiOiJISCIsImlzcyI6InNpdGUuaGF5b25kLmFjY291bnQiLCJzdWIiOiI3OTMiLCJhdWQiOiJISCIsImlhdCI6MTYxOTc3Nzc2NSwiZXhwIjoxNjM1MzI5NzY1fQ.vjXlVjreF-b5VtM7xO2bElZ86jm94kccEt3aiirSMGI") }
+  const getData = () => {
+    return appState.fetch('/projectSaas', {
+      method: "GET",
+      search: { pageNum: 1, pageSize: 10 }
+    }).then(res => {
+      console.log(res, 'res')
+    });
+  }
 
+  // 模拟预发账号token
+  if (!getCookie(cookieName)) { setCookie(cookieName, "eyJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6WyJBVURJVF9QVVJDSEFTRSIsIlBST0pFQ1RfRklOQU5DRSIsIkFVRElUX0JVSUxEIiwiU0hPUF9VU0VSIiwiQVVESVRfUFJPRFVDVCIsIkNMSUVOVF9BRE1JTiIsIlJFTlRfQURNSU4iLCJBVURJVF9DTEFTUyIsIlBST0pFQ1RfT1JERVIiLCJQUk9KRUNUX0FETUlOIiwiQVVESVRfRklOQU5DRSIsIkFVRElUX0FSRUEiLCJBVURJVF9NRUNISU5FIiwiQVVESVRfTEVHQUwiLCJQUk9KRUNUX1JFTlQiLCJQUk9KRUNUX0FVRElUIiwiUFJPSkVDVF9XQVJFSE9VU0UiLCJBVURJVF9QUk9KRUNUIiwiUFJPSkVDVF9ERVZJQ0UiLCJTSE9QX0FETUlOIiwiUFJPSkVDVF9QRVJTT04iLCJBVURJVF9TRUNVUklUWSIsIlJFTlRfVVNFUiIsIlBST0pFQ1RfVVNFUiIsIkFVRElUX1NUT1JFWSIsIkFVRElUX1JFQ0VJVkUiXSwidXNlcm5hbWUiOiJISCIsImlzcyI6InNpdGUuaGF5b25kLmFjY291bnQiLCJzdWIiOiI3OTMiLCJhdWQiOiJISCIsImlhdCI6MTYxOTc3Nzc2NSwiZXhwIjoxNjM1MzI5NzY1fQ.vjXlVjreF-b5VtM7xO2bElZ86jm94kccEt3aiirSMGI") }
+  const [loading, wrapReq] = useLoading(getData);
+
+
+  useEffect(() => {
+    wrapReq();
+  }, []);
 
   const updateData = useCallback((key, value) => {
     data[key] = value;
     setData({ ...data });
   }, []);
-  // const updateData = (key, value) => {
-  //   data[key] = value;
-  //   setData({ ...data });
-  // }
+
 
   return (
     <div>
+      <Button children="按钮" onClick={wrapReq} />
+      <LoadingPage display={loading ? 'block' : 'none'} />
       <MyButton title={"1231"} />
       <MyInputNumber value={123} onChange={() => { }} />
       {/* <ChangeButton /> */}
@@ -99,14 +134,16 @@ const App = () => {
             key: 'approvalInfo',
             label: '项目列表',
             info: <SearchInput
-              url="project"
+              url="projectSaas"
               schema={{
                 value: 'id',
                 key: 'id',
                 label: 'name'
               }}
-              initQueryField="name"
-              queryField="name"
+              initQueryField="queryField"
+              queryField="queryField"
+              value={data.projectId}
+              onChange={(value) => { setData({ ...data, projectId: value }) }}
             />
           },
           {
@@ -128,6 +165,8 @@ const App = () => {
     </div>
   )
 }
+
+
 
 //要实现局部热更新，必须要添加此句
 // eslint-disable-next-line no-undef

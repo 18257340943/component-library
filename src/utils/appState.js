@@ -6,7 +6,10 @@ import { getCookie } from "./cookie";
 import { search, removeEmptyField } from "./utils";
 import initEnv from "./initEnv";
 
-// 支持 search 参数url化
+
+const { baseUrl } = initEnv;
+
+// 支持 search 参数url化,并且将 search 参数删除
 function addSearch(url, init) {
   // console.log(url, JSON.stringify(init), 'url')
   // eslint-disable-next-line no-unused-expressions
@@ -31,12 +34,34 @@ function addSearch(url, init) {
   };
 }
 
+// 为baseUrl 添加 pathUrl
+function addPathUrl(baseUrl, url) {
+  let newURL = '';
+  if (typeof url === "string") {
+    newURL = baseUrl + url;
+    return newURL;
+  }
+
+}
+
+// 部分业务支持重写 url
+function initUrl(url, init) {
+  let newURL = url;
+  if (Object.hasOwnProperty.call(init, 'initUrl')) {
+    newURL = init.initUrl
+    return newURL
+  }
+  return newURL
+}
+
+// 带有请求拦截器的 fetch
 const _fetch = () => {
   // 定义用来存储拦截请求和拦截响应结果的处理函数集合
   const interceptors_req = [];
   const interceptors_res = [];
 
   function c_fetch(input, init = {}) {
+
     // fetch默认请求方式设为GET
     if (!init.method) {
       init.method = "POST";
@@ -46,47 +71,22 @@ const _fetch = () => {
       init = interceptors(init);
     });
 
-    // 在原生fetch外面封装一个promise，为了在promise里面可以对fetch请求的结果做拦截处理。
-    // 同时，保证c_fetch函数返回的结果是个promise对象。
-
     return new Promise((resolve, reject) => {
       // 发起fetch请求，fetch请求的形参是接收上层函数的形参
       fetch(input, init)
         .then(res => {
-          // interceptors_res是拦截响应结果的拦截处理函数集合
           interceptors_res.forEach(interceptors => {
-            // console.log(interceptors, 'interceptors');
             // 拦截器对响应结果做  处理，把处理后的结果返回给响应结果。
             res = interceptors(res);
           });
-          // 批量导出特殊处理
-          const isXls = res.headers.get('content-type').indexOf("application/vnd.ms-excel") > -1;
-          // OSS 签名认证特殊处理
-          const ossUrl = "http://cdn-oss-data-zxhj.oss-cn-zhangjiakou.aliyuncs.com/";
-          if (res.url === ossUrl && res.status === 200) {
-            return new Promise((resolve, reject) => { resolve({ code: 200 }) });
-          } else if (isXls) {
-            return res.blob().then(blob => {
-              let url = window.URL.createObjectURL(blob);
-              let disposition = res.headers.get('Content-Disposition');
-              let filename = disposition ? disposition.split("=")[1] : '';
-              if (filename) {
-                filename = decodeURIComponent(filename);
-              }
-              let a = document.createElement('a');
-              a.href = url;
-              a.download = filename;
-              a.click();
-              window.URL.revokeObjectURL(url);
-              return ({ code: 200, data: true });
-            });
-          } else {
+          // 常规数据返回 res.json()
+          if (Object.getPrototypeOf(res).constructor.name === "Response") {
             return res.json();
           }
+          resolve(res);
         })
         .then(result => {
           const { data, code } = result;
-          // console.log(result, 'result');
           // 通过 code === 200? 认证直接报错
           if (code !== 200) {
             message.error(data && data.message || "服务器异常！");
@@ -100,9 +100,7 @@ const _fetch = () => {
           // 将拦截器处理后的响应结果resolve出去
           resolve(data);
         })
-        .catch(err => {
-          reject(err);
-        });
+        .catch(err => reject(err));
     });
   }
 
@@ -123,15 +121,15 @@ const _fetch = () => {
 
 class AppState {
 
-  constructor(fetch) {
-    // console.log('fetch测试开始了');
-    this._fetch = fetch;
-    this.baseUrl = initEnv.baseUrl;
-    // console.log(AppState.loginToken, 'AppState.loginToken')
+  constructor() {
+    this._fetch = _fetch();
+    this.baseUrl = baseUrl;
+    this.loading = false;
   }
-  // static loginToken = getCookie(initEnv.cookieName);
 
-  static requestIntercept(config) {
+  // 私有属性代表appState 默认拦截处理
+  #requestIntercept = (config) => {
+    this.loading = true;
     let { body } = config;
     let { headers } = config;
 
@@ -163,13 +161,40 @@ class AppState {
     };
   }
 
-  static responseIntercept(response) {
-    return response;
+  #responseIntercept = (response) => {
+    this.loading = false;
+    // OSS 签名认证特殊处理
+    const ossUrl = "http://cdn-oss-data-zxhj.oss-cn-zhangjiakou.aliyuncs.com/";
+    // 批量导出 contentType为ms-excel类型
+    const isXls = response.headers.get('content-type').indexOf("application/vnd.ms-excel") > -1;
+    if (response.url === ossUrl && response.status === 200) {
+      return { code: 200 };
+      // 确认返回类型是 xls 表格系列
+    } else if (isXls) {
+      return response.blob().then(blob => {
+        let url = window.URL.createObjectURL(blob);
+        let disposition = response.headers.get('Content-Disposition');
+        let filename = disposition ? disposition.split("=")[1] : '';
+        if (filename) {
+          filename = decodeURIComponent(filename);
+        }
+        let a = document.createElement('a');
+        a.href = url;
+        a.download = filename;
+        a.click();
+        window.URL.revokeObjectURL(url);
+        return { code: 200, data: true };
+      });
+    } else {
+      return response
+    }
+
   }
 
   // 针对请求路径和配置做进一步处理啊
-  updateParams(url, init) {
-    url = this.baseUrl + url;
+  updateUrl(url, init) {
+    url = addPathUrl(this.baseUrl, url);
+    url = initUrl(url, init);
     const { newURL, newINIT } = addSearch(url, init);
     return { newURL, newINIT };
   }
@@ -226,20 +251,16 @@ class AppState {
   }
 
   fetch(url, init) {
-    const c_fetch = this._fetch();
-    let { newURL, newINIT } = this.updateParams(url, init);
-    // fetch请求可通过 init配置覆盖url
-    const { initUrl } = newINIT;
-    if (initUrl) {
-      newURL = initUrl;
-    }
-    // console.log(newURL, 'newURL');
-    // console.log(newURL, 'newUrl')
-    c_fetch.interceptors.request.use(AppState.requestIntercept);
-    c_fetch.interceptors.response.use(AppState.responseIntercept);
-    return c_fetch(newURL, newINIT);
+    // 在请求之前针对url进行初始化处理；
+    let { newURL, newINIT } = this.updateUrl(url, init);
+    // 内部默认拦截器
+    this._fetch.interceptors.request.use(this.#requestIntercept);
+    this._fetch.interceptors.response.use(this.#responseIntercept);
+
+    return this._fetch(newURL, newINIT);
   }
+
 }
 
-export default new AppState(_fetch);
+export default new AppState();
 

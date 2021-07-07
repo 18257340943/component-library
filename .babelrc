@@ -3,6 +3,11 @@
     "@babel/preset-env",
     "@babel/preset-react"
   ],
+  // 开启 @babel/plugin-proposal-class-properties 的私有属性
+  "assumptions": {
+    "privateFieldsAsProperties": true,
+    "setPublicClassFields": true
+  },
   "plugins": [
     "react-hot-loader/babel", // react 热更新
     // "@babel/transform-runtime",
@@ -13,10 +18,17 @@
       }
     ],
     [
-      "@babel/plugin-proposal-class-properties",
-      {
-        "loose": true
-      }
+      "@babel/plugin-proposal-class-properties"
+      // {
+      //   "loose": true
+      // }
+    ],
+    // plugin-proposal-private-methods 包含于 @babel/preset-env中 开启loose以支持assumptions属性
+    [
+      "@babel/plugin-proposal-private-methods"
+      // {
+      //   "loose": true
+      // }
     ]
   ]
 }
