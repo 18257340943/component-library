@@ -21,7 +21,7 @@ import { getCookie, setCookie } from '../utils/cookie';
 
 const { cookieName } = initEnv;
 
-
+console.log(111);
 const App = () => {
   const [data, setData] = useState({});
 
