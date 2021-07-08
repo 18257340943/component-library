@@ -15,15 +15,14 @@ import ComImg from './ComImg';
 import theme from './theme';
 import RadioButtons from './RadioButtons';
 import MySwitch from './MySwitch';
-import LoadingPage from './Loading';
+import loadingPage from './LoadingPage';
 import SpuInfo from './SpuInfo';
 import appState from '../utils/appState';
 import initEnv from '../utils/initEnv';
-
-// console.log('测试目录6666')
+import useLoading from '../utils/useLoading';
 
 export {
-  LoadingPage,
+  loadingPage,
   MyButton,
   FormContent,
   ImageUpload,
@@ -42,4 +41,5 @@ export {
   appState,
   initEnv,
   theme,
+  useLoading
 }

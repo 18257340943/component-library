@@ -1,4 +1,3 @@
-/// <reference path="../components/index.d.ts" />
 
 export { default as FormContent } from '../components/FormContent';
 export { default as ImageUpload } from '../components/ImageUpload';
@@ -14,6 +13,7 @@ export { default as ComImg } from '../components/ComImg';
 export { default as RadioButtons } from '../components/RadioButtons';
 export { default as MySwitch } from '../components/MySwitch';
 export { default as SpuInfo } from '../components/SpuInfo';
+export { default as loadingPage } from '../components/loadingPage';
 export type { appStateProps } from '../utils/appState';
 export { default as appState } from '../utils/appState';
 export { default as initEnv } from '../utils/initEnv';

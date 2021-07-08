@@ -13,31 +13,13 @@ import {
   ImageUpload,
   initEnv,
   appState,
-  LoadingPage
-} from '../components';
+  loadingPage,
+  useLoading
+} from '../../lib/component-library';
 
 import { getCookie, setCookie } from '../utils/cookie';
 
 const { cookieName } = initEnv;
-
-
-function useLoading(req) {
-  const [loading, setLoading] = useState(false);
-  const wrapReq = useCallback(
-    (...args) => {
-      setLoading(true);
-      return req(...args).then((data) => {
-        setLoading(false);
-        return Promise.resolve(data);
-      }).catch((reason) => {
-        setLoading(false);
-        return Promise.reject(reason);
-      });
-    },
-    [req]
-  );
-  return [loading, wrapReq];
-}
 
 
 const App = () => {
@@ -69,8 +51,10 @@ const App = () => {
 
   return (
     <div>
-      <Button children="按钮" onClick={wrapReq} />
-      <LoadingPage display={loading ? 'block' : 'none'} />
+      <Button onClick={loadingPage.start}>开始加载</Button>
+      <Button onClick={loadingPage.end}>加载结束</Button>
+      {/* <Button children="按钮" onClick={wrapReq} /> */}
+      {/* <LoadingPage display={loading ? 'block' : 'none'} /> */}
       <MyButton title={"1231"} />
       <MyInputNumber value={123} onChange={() => { }} />
       {/* <ChangeButton /> */}
