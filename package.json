@@ -1,6 +1,6 @@
 {
   "name": "@zxhj/component-library",
-  "version": "3.0.53",
+  "version": "3.0.54",
   "main": "lib/component-library.js",
   "scripts": {
     "init": "eslint --init",
