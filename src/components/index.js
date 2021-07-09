@@ -17,7 +17,7 @@ import RadioButtons from './RadioButtons';
 import MySwitch from './MySwitch';
 import loadingPage from './loadingPage';
 import SpuInfo from './SpuInfo';
-import appState from '../utils/appState';
+import AppState from '../utils/appState';
 import initEnv from '../utils/initEnv';
 
 
@@ -37,7 +37,7 @@ export {
   RadioButtons,
   MySwitch,
   SpuInfo,
-  appState,
+  AppState,
   initEnv,
   theme,
   customHooks

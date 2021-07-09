@@ -122,14 +122,13 @@ const _fetch = () => {
 class AppState {
 
   constructor() {
+    this.minTime = 100;
     this._fetch = _fetch();
     this.baseUrl = baseUrl;
-    this.loading = false;
   }
 
   // 私有属性代表appState 默认拦截处理
   #requestIntercept = (config) => {
-    this.loading = true;
     let { body } = config;
     let { headers } = config;
 
@@ -162,7 +161,7 @@ class AppState {
   }
 
   #responseIntercept = (response) => {
-    this.loading = false;
+
     // OSS 签名认证特殊处理
     const ossUrl = "http://cdn-oss-data-zxhj.oss-cn-zhangjiakou.aliyuncs.com/";
     // 批量导出 contentType为ms-excel类型
@@ -262,5 +261,5 @@ class AppState {
 
 }
 
-export default new AppState();
+export default AppState;
 

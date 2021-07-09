@@ -1,11 +1,11 @@
-import React, { useCallback, useEffect, useState, useMemo } from 'react';
+import React, { useCallback, useState, useMemo } from 'react';
 import { Select } from 'antd';
 import PropTypes from 'prop-types';
 
-import { appState, customHooks } from './index';
+import { AppState, customHooks } from './index';
 
 const { Option } = Select;
-const { useDebounce, useLoading } = customHooks;
+const { useDebounce, useLoading, useMount } = customHooks;
 
 export default function SearchInput({
   value: controlVal,
@@ -29,47 +29,43 @@ export default function SearchInput({
   labelInValue,     // 用于初始化时请求字段, 尽量不推荐使用
   ...extra
 }) {
+  const appState = useMemo(() => new AppState(), []);
   const [data, setData] = useState(initList);
 
-  const getData = (value) => appState.fetch(`/${url}`, {
+  const getData = useCallback((value) => appState.fetch(`/${url}`, {
     method: "GET",
     headers,
     [paramType]: {
       ...defaultPage,
       [queryField]: value
     }
-  });
+  }), [appState, defaultPage, headers, paramType, queryField, url]);
 
   const [loading, wrapReq] = useLoading(getData);
 
-  console.log(loading, 'loading');
-
   const handleSearch = useDebounce(async (value) => {
     let dataSource;
-
     const data = await wrapReq(value);
     dataSource = dataIndex.length > 0 ? data[dataIndex[0]] : data;
     setData(dataSource);
   }, 1500, []);
 
-  useEffect(() => {
+  useMount(() => {
     if (isInit) {
       handleSearch(labelInValue ? controlVal && controlVal.value || controlVal : controlVal, initQueryField);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  });
 
-  const options = useMemo(() => data && data.map(d => <Option value={d[schema.value]} key={d[schema.key]}>{d[schema.label]}</Option>), [data]);
+  const options = useMemo(() => data && data.map(d => <Option value={d[schema.value]} key={d[schema.key]}>{d[schema.label]}</Option>), [data, schema]);
 
   const onSearch = useCallback((value) => {
     if (value) {
       handleSearch(value);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [handleSearch]);
 
   return (<Select
-    filterOption={false}        // 关闭组件自动筛选功能
+    filterOption={false}        // 关闭下拉框自动筛选功能
     loading={loading}
     showSearch
     labelInValue={labelInValue}

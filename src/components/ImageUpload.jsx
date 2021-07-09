@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React, { useMemo } from 'react';
 import { Upload } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
 import PropTypes from 'prop-types';
 
-import appState from '../utils/appState'
+import AppState from '../utils/appState'
 
 
 const leaveFileList = (fileList, single, status) => {
@@ -66,8 +66,11 @@ const toFileList = (value) => {
 
 const ImageUpload = function ImageUpload({ value, onChange, uploadMax, single, style, ...extra }) {
   value = value || '';
-  const fileList = toFileList(value);
   uploadMax = uploadMax || 1;
+
+  const fileList = toFileList(value);
+  const appState = useMemo(() => new AppState(), []);
+
   const onPreview = async file => {
     let src = file.url;
     if (!src) {
@@ -82,6 +85,7 @@ const ImageUpload = function ImageUpload({ value, onChange, uploadMax, single, s
     const imgWindow = window.open(src);
     imgWindow.document.write(image.outerHTML);
   };
+
   const customRequest = async (info) => {
     const formData = new FormData();
     formData.append('file', info.file);
@@ -101,12 +105,12 @@ const ImageUpload = function ImageUpload({ value, onChange, uploadMax, single, s
     onChange(leaveFileList(newFileList, single));
   }
 
-  const uploadButton = (
+  const uploadButton = useMemo(() => (
     <div >
       <PlusOutlined />
       <div style={{ marginTop: 8 }}>Upload</div>
     </div>
-  );
+  ), []);
 
   return (<div style={style} className="imageUpload"
     children={<Upload
