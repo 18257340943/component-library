@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Spin } from 'antd';
 
-const loadingPage = (() => {
+const LoadingPage = () => {
   let container = document.getElementById('loading-container');
   const loadingDom = (<div
     style={{
@@ -40,7 +40,9 @@ const loadingPage = (() => {
       ReactDOM.unmountComponentAtNode(container);
     }
   });
-})();
+};
+
+const loadingPage = LoadingPage();
 
 
 export default loadingPage
