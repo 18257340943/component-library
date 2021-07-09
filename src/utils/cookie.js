@@ -32,4 +32,4 @@ export {
   setCookie,
   getCookie,
   delCookie
-}
+};

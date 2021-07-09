@@ -11,7 +11,6 @@ const webpackConfigDev = {
     path: resolve(__dirname, '../build'),
     filename: 'index.js',
   },
-
   devtool: 'cheap-module-eval-source-map',
 
   devServer: {

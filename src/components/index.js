@@ -19,7 +19,7 @@ import loadingPage from './LoadingPage';
 import SpuInfo from './SpuInfo';
 import appState from '../utils/appState';
 import initEnv from '../utils/initEnv';
-import useLoading from '../utils/useLoading';
+import customHooks from '../utils/customHooks';
 
 export {
   loadingPage,
@@ -27,7 +27,6 @@ export {
   FormContent,
   ImageUpload,
   MyInputNumber,
-  // ChangeButton,
   MyDatePicker,
   MyRangePicker,
   SearchInput,
@@ -41,5 +40,5 @@ export {
   appState,
   initEnv,
   theme,
-  useLoading
+  customHooks
 }

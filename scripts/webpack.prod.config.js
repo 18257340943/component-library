@@ -9,9 +9,11 @@ const { merge } = require('webpack-merge');
 
 const webpackConfigProd = {
   mode: 'development',
-  entry: resolve(__dirname, '../src/components/index.js'),
+  entry: {
+    "component-library": resolve(__dirname, '../src/components/index.js')
+  },
   output: {
-    filename: 'component-library.js',
+    filename: '[name].js',
     path: resolve(__dirname, '../lib'),
     libraryTarget: 'commonjs2'
   },

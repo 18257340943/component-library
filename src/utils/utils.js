@@ -80,6 +80,7 @@ export const calcScrollX = (columns) => {
   });
   return scrollX;
 };
+
 // 查找源对象 目标对象 对象识别符
 export function myFindIndex(objArr = [], targetObj = {}, type) {
   const arrIndex = objArr.findIndex(
@@ -89,6 +90,8 @@ export function myFindIndex(objArr = [], targetObj = {}, type) {
   );
   return arrIndex;
 }
+
+// 将search对象编译成 url
 export function search(searchObj) {
   return Object.keys(searchObj).length > 0 ? `?${Object.keys(searchObj)
     .map((key) => `${key}=${searchObj[key]}`)
