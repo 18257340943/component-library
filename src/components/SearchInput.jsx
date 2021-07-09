@@ -3,7 +3,7 @@ import { Select } from 'antd';
 import PropTypes from 'prop-types';
 
 import appState from '@/utils/appState';
-import useDebounce from '@/utils/useDebounce';
+import { useDebounce } from '@/utils/customHooks';
 
 const { Option } = Select;
 
