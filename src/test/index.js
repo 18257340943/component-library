@@ -14,33 +14,46 @@ import {
   initEnv,
   appState,
   loadingPage,
-  useLoading
-} from '../../lib/component-library';
+  customHooks
+} from '../components';
 
 import { getCookie, setCookie } from '../utils/cookie';
 
+
+const {
+  useLoadingPage,
+  useLoading
+} = customHooks;
 const { cookieName } = initEnv;
 
+// console.log(useLoadingPage, useLoading, 'useLoadingPage , useLoading');
 console.log(222);
 const App = () => {
   const [data, setData] = useState({});
 
   const getData = () => {
-    return appState.fetch('/projectSaas', {
-      method: "GET",
-      search: { pageNum: 1, pageSize: 10 }
-    }).then(res => {
-      console.log(res, 'res')
-    });
+    // return appState.fetch('/projectSaas', {
+    //   method: "GET",
+    //   search: { pageNum: 1, pageSize: 10 }
+    // }).then(res => {
+    //   console.log(res, 'res')
+    // });
+    return new Promise(resolve => {
+      setTimeout(() => {
+        resolve({ code: 200 })
+      }, 1000);
+    })
+
   }
 
   // 模拟预发账号token
   if (!getCookie(cookieName)) { setCookie(cookieName, "eyJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6WyJBVURJVF9QVVJDSEFTRSIsIlBST0pFQ1RfRklOQU5DRSIsIkFVRElUX0JVSUxEIiwiU0hPUF9VU0VSIiwiQVVESVRfUFJPRFVDVCIsIkNMSUVOVF9BRE1JTiIsIlJFTlRfQURNSU4iLCJBVURJVF9DTEFTUyIsIlBST0pFQ1RfT1JERVIiLCJQUk9KRUNUX0FETUlOIiwiQVVESVRfRklOQU5DRSIsIkFVRElUX0FSRUEiLCJBVURJVF9NRUNISU5FIiwiQVVESVRfTEVHQUwiLCJQUk9KRUNUX1JFTlQiLCJQUk9KRUNUX0FVRElUIiwiUFJPSkVDVF9XQVJFSE9VU0UiLCJBVURJVF9QUk9KRUNUIiwiUFJPSkVDVF9ERVZJQ0UiLCJTSE9QX0FETUlOIiwiUFJPSkVDVF9QRVJTT04iLCJBVURJVF9TRUNVUklUWSIsIlJFTlRfVVNFUiIsIlBST0pFQ1RfVVNFUiIsIkFVRElUX1NUT1JFWSIsIkFVRElUX1JFQ0VJVkUiXSwidXNlcm5hbWUiOiJISCIsImlzcyI6InNpdGUuaGF5b25kLmFjY291bnQiLCJzdWIiOiI3OTMiLCJhdWQiOiJISCIsImlhdCI6MTYxOTc3Nzc2NSwiZXhwIjoxNjM1MzI5NzY1fQ.vjXlVjreF-b5VtM7xO2bElZ86jm94kccEt3aiirSMGI") }
   const [loading, wrapReq] = useLoading(getData);
-
-
+  // const result = useLoadingPage(getData);
+  // console.log(result, 'result');
+  // console.log(loading, 'loading')
   useEffect(() => {
-    wrapReq();
+    // wrapReq();
   }, []);
 
   const updateData = useCallback((key, value) => {
@@ -52,8 +65,8 @@ const App = () => {
   return (
     <div>
       <Button onClick={loadingPage.start}>开始加载</Button>
-      <Button onClick={loadingPage.end}>加载结束</Button>
-      {/* <Button children="按钮" onClick={wrapReq} /> */}
+      <Button onClick={loadingPage.end} style={{ zIndex: 2 }}>加载结束</Button>
+      <Button children="测试useLoading" onClick={wrapReq} />
       {/* <LoadingPage display={loading ? 'block' : 'none'} /> */}
       <MyButton title={"1231"} />
       <MyInputNumber value={123} onChange={() => { }} />

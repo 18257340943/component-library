@@ -1,6 +1,6 @@
 import 'antd/dist/antd.css';
 
-// import ChangeButton from './change_button/change_button';
+import customHooks from '../utils/customHooks';
 import FormContent from './FormContent';
 import MyButton from './MyButton';
 import MyDatePicker from './MyDatePicker';
@@ -19,7 +19,7 @@ import loadingPage from './LoadingPage';
 import SpuInfo from './SpuInfo';
 import appState from '../utils/appState';
 import initEnv from '../utils/initEnv';
-import customHooks from '../utils/customHooks';
+
 
 export {
   loadingPage,

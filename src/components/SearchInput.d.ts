@@ -13,7 +13,7 @@ interface SearchInputProps extends ComValue {
   dataIndex: unknown,
   url: string,
   schema: unknown,
-  loading: boolean
+  // loading: boolean
 }
 
 

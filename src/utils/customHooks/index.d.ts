@@ -1,6 +1,7 @@
 
 interface CustomHooks {
   useLoading: () => {};
+  useLoadingPage: () => {};
   useDebounce: () => {};
   useMount: () => {};
   useUnMount: () => {}
