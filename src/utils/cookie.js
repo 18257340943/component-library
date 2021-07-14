@@ -28,8 +28,10 @@ function delCookie(name) {
     document.cookie = `${name}=${cval};path=/;${domain}expires=${exp.toGMTString()}`;
 }
 
-export {
+const cookie = {
   setCookie,
   getCookie,
   delCookie
 };
+
+export default cookie;

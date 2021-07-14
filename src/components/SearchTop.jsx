@@ -3,7 +3,7 @@ import { Button } from 'antd';
 import { makeStyles } from '@material-ui/styles';
 import PropTypes from 'prop-types';
 
-import theme from './theme'
+import theme from '../theme'
 
 function SearchTop({ content, ...extra }) {
 

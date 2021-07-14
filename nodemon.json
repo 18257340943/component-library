@@ -1,5 +1,5 @@
 {
-  "ext": "js,jsx,css",
+  "ext": "js,jsx,css,.d.ts",
   "verbose": false,
   "ignore": [
     "lib/",

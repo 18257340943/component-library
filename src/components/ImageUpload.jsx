@@ -3,7 +3,7 @@ import { Upload } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
 import PropTypes from 'prop-types';
 
-import AppState from '../utils/appState'
+import appState from '../utils/appState'
 
 
 const leaveFileList = (fileList, single, status) => {
@@ -69,7 +69,6 @@ const ImageUpload = function ImageUpload({ value, onChange, uploadMax, single, s
   uploadMax = uploadMax || 1;
 
   const fileList = toFileList(value);
-  const appState = useMemo(() => new AppState(), []);
 
   const onPreview = async file => {
     let src = file.url;

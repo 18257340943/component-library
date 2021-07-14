@@ -1,6 +1,6 @@
 {
   "name": "@zxhj/component-library",
-  "version": "3.0.60",
+  "version": "3.0.65",
   "main": "lib/component-library.js",
   "scripts": {
     "init": "eslint --init",
@@ -56,16 +56,18 @@
     "webpack-merge": "^5.0.9",
     "webpack-node-externals": "^2.5.0"
   },
-  "registory": {},
   "dependencies": {
     "@material-ui/styles": "^4.11.3",
     "@types/react": "^17.0.13",
     "antd": "^4.15.2",
     "jquery": "^3.6.0",
-    "nodemon": "^2.0.7",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2"
+    "nodemon": "^2.0.7"
   },
+  "peerDependencies": {
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1"
+  },
+  "registory": {},
   "keywords": [],
   "author": "",
   "license": "MIT",

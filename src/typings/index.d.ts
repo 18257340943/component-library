@@ -18,4 +18,5 @@ export type { appStateProps } from '../utils/appState';
 export { default as appState } from '../utils/appState';
 export { default as initEnv } from '../utils/initEnv';
 export { default as customHooks } from '../utils/customHooks';
+export { default as cookie } from '../utils/cookie';
 export declare const theme: object;

@@ -1,11 +1,11 @@
-import React, { useCallback, useState, useMemo } from 'react';
+import React, { useCallback, useState, useMemo, useEffect } from 'react';
 import { Select } from 'antd';
 import PropTypes from 'prop-types';
 
-import { AppState, customHooks } from './index';
+import { appState, customHooks } from './index';
 
 const { Option } = Select;
-const { useDebounce, useLoading, useMount } = customHooks;
+const { useDebounce, useLoading, useMount, useUnMount } = customHooks;
 
 export default function SearchInput({
   value: controlVal,
@@ -29,7 +29,6 @@ export default function SearchInput({
   labelInValue,     // 用于初始化时请求字段, 尽量不推荐使用
   ...extra
 }) {
-  const appState = useMemo(() => new AppState(), []);
   const [data, setData] = useState(initList);
 
   const getData = useCallback((value) => appState.fetch(`/${url}`, {
@@ -39,11 +38,12 @@ export default function SearchInput({
       ...defaultPage,
       [queryField]: value
     }
-  }), [appState, defaultPage, headers, paramType, queryField, url]);
+  }), [defaultPage, headers, paramType, queryField, url]);
 
-  const [loading, wrapReq] = useLoading(getData);
+  const { loading, wrapReq } = useLoading(getData, []);
 
   const handleSearch = useDebounce(async (value) => {
+    // console.log('开始执行')
     let dataSource;
     const data = await wrapReq(value);
     dataSource = dataIndex.length > 0 ? data[dataIndex[0]] : data;
@@ -51,10 +51,15 @@ export default function SearchInput({
   }, 1500, []);
 
   useMount(() => {
+    // console.log('SearchInput 组件挂载阶段');
     if (isInit) {
       handleSearch(labelInValue ? controlVal && controlVal.value || controlVal : controlVal, initQueryField);
     }
   });
+
+  useUnMount(() => {
+    // console.log('SearchInput 组件销毁阶段');
+  })
 
   const options = useMemo(() => data && data.map(d => <Option value={d[schema.value]} key={d[schema.key]}>{d[schema.label]}</Option>), [data, schema]);
 

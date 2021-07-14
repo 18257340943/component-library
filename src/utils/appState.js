@@ -2,11 +2,11 @@
 
 import { message } from "antd";
 
-import { getCookie } from "./cookie";
+import cookie from "./cookie";
 import { search, removeEmptyField } from "./utils";
 import initEnv from "./initEnv";
 
-
+const { getCookie } = cookie;
 const { baseUrl } = initEnv;
 
 // 支持 search 参数url化,并且将 search 参数删除
@@ -57,8 +57,8 @@ function initUrl(url, init) {
 // 带有请求拦截器的 fetch
 const _fetch = () => {
   // 定义用来存储拦截请求和拦截响应结果的处理函数集合
-  const interceptors_req = [];
-  const interceptors_res = [];
+  let interceptors_req = [];
+  let interceptors_res = [];
 
   function c_fetch(input, init = {}) {
 
@@ -70,7 +70,7 @@ const _fetch = () => {
     interceptors_req.forEach(interceptors => {
       init = interceptors(init);
     });
-
+    interceptors_req = [];
     return new Promise((resolve, reject) => {
       // 发起fetch请求，fetch请求的形参是接收上层函数的形参
       fetch(input, init)
@@ -79,6 +79,7 @@ const _fetch = () => {
             // 拦截器对响应结果做  处理，把处理后的结果返回给响应结果。
             res = interceptors(res);
           });
+          interceptors_res = [];
           // 常规数据返回 res.json()
           if (Object.getPrototypeOf(res).constructor.name === "Response") {
             return res.json();
@@ -89,7 +90,9 @@ const _fetch = () => {
           const { data, code } = result;
           // 通过 code === 200? 认证直接报错
           if (code !== 200) {
-            message.error(data && data.message || "服务器异常！");
+            const errorMsg = data && data.message || "服务器异常！";
+            message.error(errorMsg);
+            reject(errorMsg);
             return;
           }
           // 部分接口通过data中的 succeed? 判断
@@ -131,7 +134,7 @@ class AppState {
   #requestIntercept = (config) => {
     let { body } = config;
     let { headers } = config;
-
+    // console.log(headers, 'headers');
     const loginToken = getCookie(initEnv.cookieName);
     headers = removeEmptyField(headers);
 
@@ -140,6 +143,8 @@ class AppState {
       ...headers,
     });
 
+    // console.log(defaultHeaders.get('projectId'));
+    // form-data数据类型 更改 content-type 类型为自适应
     if (body) {
       if (Object.getPrototypeOf(body).constructor.name === "FormData") {
         defaultHeaders.delete("Content-Type");
@@ -165,7 +170,7 @@ class AppState {
     // OSS 签名认证特殊处理
     const ossUrl = "http://cdn-oss-data-zxhj.oss-cn-zhangjiakou.aliyuncs.com/";
     // 批量导出 contentType为ms-excel类型
-    const isXls = response.headers.get('content-type').indexOf("application/vnd.ms-excel") > -1;
+    const isXls = response.headers.get('content-type') && response.headers.get('content-type').indexOf("application/vnd.ms-excel") > -1;
     if (response.url === ossUrl && response.status === 200) {
       return { code: 200 };
       // 确认返回类型是 xls 表格系列
@@ -245,8 +250,6 @@ class AppState {
 
 
     })
-
-
   }
 
   fetch(url, init) {
@@ -261,5 +264,7 @@ class AppState {
 
 }
 
-export default AppState;
+const appState = new AppState();
+
+export default appState;
 

@@ -12,14 +12,14 @@ import StaticTabs from './StaticTabs';
 import ImageUpload from './ImageUpload';
 import MyInputNumber from './MyInputNumber';
 import ComImg from './ComImg';
-import theme from './theme';
+import theme from '../theme';
 import RadioButtons from './RadioButtons';
 import MySwitch from './MySwitch';
 import loadingPage from './loadingPage';
 import SpuInfo from './SpuInfo';
-import AppState from '../utils/appState';
+import appState from '../utils/appState';
 import initEnv from '../utils/initEnv';
-
+import cookie from '../utils/cookie';
 
 export {
   loadingPage,
@@ -37,8 +37,9 @@ export {
   RadioButtons,
   MySwitch,
   SpuInfo,
-  AppState,
+  appState,
   initEnv,
+  cookie,
   theme,
   customHooks
 }

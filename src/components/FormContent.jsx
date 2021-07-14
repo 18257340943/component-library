@@ -3,7 +3,7 @@ import { Form } from 'antd';
 import { makeStyles } from '@material-ui/styles';
 import PropTypes from 'prop-types';
 
-import theme from './theme';
+import theme from '../theme';
 import SearchTop from './SearchTop';
 
 function FormContent({ content, formItemLayout, style, wrapperStyle, ...extra }) {
